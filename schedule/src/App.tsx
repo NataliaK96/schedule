@@ -1,13 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
-import Header from './components/Header';
+import { getScheduleAsync } from './redux/actions';
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-    </div>
-  );
+  const dispatch = useDispatch();
+  dispatch(getScheduleAsync());
+  return <div className="App"></div>;
 }
 
 export default App;
