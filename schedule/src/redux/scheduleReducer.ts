@@ -1,5 +1,5 @@
-import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
-import { initAction } from './actions';
+import { ScheduleActionTypes, ISchedule, Role, Template } from './types'
+import { initAction } from './actions'
 
 const initialState: ISchedule = {
   isLoading: false,
@@ -7,19 +7,42 @@ const initialState: ISchedule = {
   role: Role.student,
   events: [],
   template: Template.table,
-};
+  chooseEvent: {
+    id: 'sfnnfeslf',
+    name: 'Встреча у бабушки',
+    description: 'Мы встречаемся у бабушки',
+    descriptionUrl: 'хттп://бабушка.рф',
+    type: 'dedline',
+    timeZone: '-240',
+    dateTime: '2020-09-14T23:59',
+    place: 'Домик в деревне',
+    comment: 'Не забудьте, что кушать перед поезкой нельзя',
+    organizer: {
+      id: 'fnisfl',
+      github: 'Olys1703',
+      name: 'зергей',
+    },
+    mark: false,
+  },
+  eventEditModalIsVisible: false,
+  eventInfoModalisVisible: false,
+}
 export const scheduleReducer = (
   state = initialState,
   action: { type: string; payload?: any } = initAction()
 ) => {
   switch (action.type) {
     case ScheduleActionTypes.FETCH_SCHEDULE:
-      return { ...state, events: action.payload };
+      return { ...state, events: action.payload }
     case ScheduleActionTypes.SET_LOADING:
-      return { ...state, isLoading: action.payload };
+      return { ...state, isLoading: action.payload }
     case ScheduleActionTypes.SET_ERROR:
-      return { ...state, isError: action.payload };
+      return { ...state, isError: action.payload }
+    case ScheduleActionTypes.SET_EVENT_EDIT_MODAL_IS_VISIBLE:
+      return { ...state, eventEditModalIsVisible: action.payload }
+    case ScheduleActionTypes.SET_EVENT_INFO_MODAL_IS_VISIBLE:
+      return { ...state, eventInfoModalisVisible: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}
