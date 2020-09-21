@@ -10,6 +10,8 @@ export enum ScheduleActionTypes {
 
   SET_ROLE = '@@schedule/SET_ROLE',
 
+  GET_ROLE = '@@schedule/GET_ROLE',
+
   SET_TIMEZONE = '@@schedule/SET_TIMEZONE',
 
   CHOOSE_CALENDARE = '@@schedule/CHOOSE_CALENDARE',
