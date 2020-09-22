@@ -32,9 +32,9 @@ export const selectEventType = (
 export const selectChooseEvent = (store: ISchedule): IEvent | null => {
   return store.chooseEvent
 }
-export const selectEventInfoModalIsVisible = (store: ISchedule): boolean => {
-  return store.eventInfoModalisVisible
+export const selectEventInfoIsVisible = (store: ISchedule): boolean => {
+  return store.eventInfoIsVisible
 }
-export const selectEventEditModalIsVisible = (store: ISchedule): boolean => {
-  return store.eventEditModalIsVisible
+export const selectEventEditIsVisible = (store: ISchedule): boolean => {
+  return store.eventEditIsVisible
 }

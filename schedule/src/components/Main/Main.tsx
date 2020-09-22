@@ -1,10 +1,10 @@
 import React from 'react'
-import { EventInfoModal } from '../EventInfoModal/EventInfoModal'
+import { EventInfo } from '../EventInfo/EventInfo'
 
 export const Main = () => {
   return (
     <main>
-      <EventInfoModal />
+      <EventInfo />
     </main>
   )
 }

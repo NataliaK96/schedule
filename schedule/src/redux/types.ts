@@ -18,8 +18,8 @@ export enum ScheduleActionTypes {
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
 
-  SET_EVENT_INFO_MODAL_IS_VISIBLE = '@@schedule/SET_EVENT_INFO_MODAL_IS_VISIBLE',
-  SET_EVENT_EDIT_MODAL_IS_VISIBLE = '@@schedule/SET_EVENT_EDIT_MODAL_IS_VISIBLE',
+  SET_EVENT_INFO_IS_VISIBLE = '@@schedule/SET_EVENT_INFO_IS_VISIBLE',
+  SET_EVENT_EDIT_IS_VISIBLE = '@@schedule/SET_EVENT_EDIT_IS_VISIBLE',
 }
 
 export interface ISchedule {
@@ -29,8 +29,8 @@ export interface ISchedule {
   template: Template
   events: IEvent[]
   chooseEvent: IEvent | null
-  eventInfoModalisVisible: boolean
-  eventEditModalIsVisible: boolean
+  eventInfoIsVisible: boolean
+  eventEditIsVisible: boolean
 }
 
 export enum Template {

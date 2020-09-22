@@ -1,18 +1,24 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import { getScheduleAsync } from './redux/actions'
-import { EventInfoModal, Header, Main } from './components'
+import { EventInfo, Header, Main } from './components'
 import 'antd/dist/antd.css'
+import { Button, Spin } from 'antd'
+import { selectIsLoading } from './redux/selectors'
 
 function App() {
+  const isLoading = useSelector(selectIsLoading)
   const dispatch = useDispatch()
-  dispatch(getScheduleAsync())
+  useEffect(() => {
+    dispatch(getScheduleAsync())
+  }, [])
   return (
     <div className="App">
+      <Spin spinning={isLoading} tip="Loading..." />
       {/* <Header></Header>
       <Main></Main> */}
-      <EventInfoModal />
+      <EventInfo>Pick</EventInfo>
     </div>
   )
 }

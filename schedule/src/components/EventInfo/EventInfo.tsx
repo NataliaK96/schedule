@@ -1,31 +1,59 @@
 import React, { useState } from 'react'
-import { Modal, Button } from 'antd'
+import { Popover, Button } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectChooseEvent,
-  selectEventInfoModalIsVisible,
+  selectEventInfoIsVisible,
 } from '../../redux/selectors'
-import { setEventInfoModalIsVisible } from '../../redux/actions'
+import { setEventInfoIsVisible } from '../../redux/actions'
 
-export const EventInfoModal = () => {
-  const isVisible = useSelector(selectEventInfoModalIsVisible)
+type Props = {}
+
+export const EventInfo: React.FC<Props> = (props) => {
+  const isVisible = useSelector(selectEventInfoIsVisible)
   const event = useSelector(selectChooseEvent)
   const dispatch = useDispatch()
 
   const showModal = () => {
-    dispatch(setEventInfoModalIsVisible(true))
+    dispatch(setEventInfoIsVisible(true))
   }
 
   const handleOk = () => {
-    dispatch(setEventInfoModalIsVisible(false))
+    dispatch(setEventInfoIsVisible(false))
   }
 
   const handleCancel = () => {
-    dispatch(setEventInfoModalIsVisible(false))
+    dispatch(setEventInfoIsVisible(false))
   }
 
+  const title = (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <h6>{event?.name}</h6>
+      <Button>
+        <EditOutlined />
+      </Button>
+    </div>
+  )
+
+  const content = <div></div>
+
   return (
-    <>
+    <div style={{ position: 'absolute', top: '200px' }}>
+      <Popover placement="top" title={title} content={content} trigger="click">
+        <Button>{props.children}</Button>
+      </Popover>
+    </div>
+  )
+}
+/*
+<>
       <Button type="primary" onClick={showModal}>
         Open Modal with customized footer
       </Button>
@@ -62,5 +90,4 @@ export const EventInfoModal = () => {
         <p>Some contents...</p>
       </Modal>
     </>
-  )
-}
+*/

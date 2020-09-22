@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button } from 'antd'
 
-export class EventEditModal extends React.Component {
+export class EventEdit extends React.Component {
   state = {
     ModalText: 'Content of the modal',
     visible: false,

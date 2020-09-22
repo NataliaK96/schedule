@@ -19,16 +19,16 @@ export const setError = (value: boolean) => {
   }
 }
 
-export const setEventInfoModalIsVisible = (value: boolean) => {
+export const setEventInfoIsVisible = (value: boolean) => {
   return {
-    type: ScheduleActionTypes.SET_EVENT_INFO_MODAL_IS_VISIBLE,
+    type: ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE,
     payload: value,
   }
 }
 
-export const setEventEditModalIsVisible = (value: boolean) => {
+export const setEventEditIsVisible = (value: boolean) => {
   return {
-    type: ScheduleActionTypes.SET_EVENT_EDIT_MODAL_IS_VISIBLE,
+    type: ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE,
     payload: value,
   }
 }
