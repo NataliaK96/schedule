@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { scheduleReducer } from './redux/scheduleReducer';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import "antd/dist/antd.css";
 
 const store = createStore(
   scheduleReducer,
@@ -16,9 +17,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
       <App />
-    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );

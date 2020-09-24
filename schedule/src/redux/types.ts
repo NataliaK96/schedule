@@ -17,14 +17,19 @@ export enum ScheduleActionTypes {
 
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
+
+  SHOW_CALENDAR_EVENT = '@@schedule/SHOW_HIDE_CALENDAR_EVENT',
+  SET_CALENDAR_EVENT_ID = '@@schedule/SET_CALENDAR_EVENT_ID',
 }
 
 export interface ISchedule {
-  isLoading: boolean;
-  isError: boolean;
-  role: Role;
-  template: Template;
-  events: IEvent[];
+  isLoading: boolean
+  isError: boolean
+  role: Role
+  template: Template
+  events: IEvent[]
+  isCalendarEventShown: boolean
+  calendarEventId: string
 }
 
 export enum Template {
@@ -38,20 +43,20 @@ export enum Role {
 }
 
 export interface IEvent {
-  id: string;
-  name: string;
-  description: string;
-  descriptionUrl: string;
-  type: string;
-  timeZone: string;
-  dateTime: string;
-  place: string | null;
-  comment: string;
-  organizer: IOrganizer;
-  mark: boolean;
+  id: string
+  name: string
+  description: string
+  descriptionUrl: string
+  type: string
+  timeZone: string
+  dateTime: string
+  place: string | null
+  comment: string
+  organizer: IOrganizer
+  mark: boolean
 }
 
 export interface IOrganizer {
-  name: string;
-  githubLink: string;
+  name: string
+  githubLink: string
 }
