@@ -1,23 +1,23 @@
-import { ScheduleActionTypes, IEvent } from './types';
-import { api } from '../api/api';
+import { ScheduleActionTypes, IEvent } from './types'
+import { api } from '../api/api'
 
 export const initAction = () => ({
   type: ScheduleActionTypes.__INIT__,
-});
+})
 
 export const setLoading = (value: boolean) => {
   return {
     type: ScheduleActionTypes.SET_LOADING,
     payload: value,
-  };
-};
+  }
+}
 
 export const setError = (value: boolean) => {
   return {
     type: ScheduleActionTypes.SET_ERROR,
     payload: value,
-  };
-};
+  }
+}
 
 export const setEventInfoIsVisible = (value: boolean) => {
   return {
@@ -34,21 +34,21 @@ export const setEventEditIsVisible = (value: boolean) => {
 };
 
 export const getScheduleAsync = () => async (dispatch: any) => {
-  dispatch(setLoading(true));
-  let schedule;
+  dispatch(setLoading(true))
+  let schedule
   try {
-    schedule = await fetch(api.getUrlEvents());
-    schedule = await schedule.json();
+    schedule = await fetch(api.getUrlEvents())
+    schedule = await schedule.json()
   } catch {}
   dispatch({
     type: ScheduleActionTypes.FETCH_SCHEDULE,
     payload: schedule.data,
-  });
-  dispatch(setLoading(false));
-};
+  })
+  dispatch(setLoading(false))
+}
 
 export const postEvent = (event: IEvent) => async (dispatch: any) => {
-  dispatch(setLoading(true));
+  dispatch(setLoading(true))
   try {
     await fetch(api.getUrlEvent(), {
       method: 'POST',
@@ -56,10 +56,24 @@ export const postEvent = (event: IEvent) => async (dispatch: any) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    dispatch(getScheduleAsync());
+    })
+    dispatch(getScheduleAsync())
   } catch {
-    dispatch(setError(true));
+    dispatch(setError(true))
   }
-  dispatch(setLoading(false));
-};
+  dispatch(setLoading(false))
+}
+
+export const showCalendarEvent = (show: boolean) => {
+  return {
+    type: ScheduleActionTypes.SHOW_CALENDAR_EVENT,
+    payload: show,
+  }
+}
+
+export const setCalendarEventId = (id: string) => {
+  return {
+    type: ScheduleActionTypes.SET_CALENDAR_EVENT_ID,
+    payload: id,
+  }
+}

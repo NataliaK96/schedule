@@ -1,5 +1,5 @@
-import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
-import { initAction } from './actions';
+import { ScheduleActionTypes, ISchedule, Role, Template } from './types'
+import { initAction } from './actions'
 
 const initialState: ISchedule = {
   isLoading: false,
@@ -33,9 +33,9 @@ export const scheduleReducer = (
 ): ISchedule => {
   switch (action.type) {
     case ScheduleActionTypes.FETCH_SCHEDULE:
-      return { ...state, events: action.payload };
+      return { ...state, events: action.payload }
     case ScheduleActionTypes.SET_LOADING:
-      return { ...state, isLoading: action.payload };
+      return { ...state, isLoading: action.payload }
     case ScheduleActionTypes.SET_ERROR:
       return { ...state, isError: action.payload };
     case ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE:
@@ -43,6 +43,6 @@ export const scheduleReducer = (
     case ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE:
       return { ...state, eventInfoIsVisible: action.payload };
     default:
-      return state;
+      return state
   }
-};
+}

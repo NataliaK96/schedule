@@ -44,17 +44,17 @@ export enum Role {
 }
 
 export interface IEvent {
-  id: string;
-  name: string;
-  description: string;
-  descriptionUrl: string;
-  type: string;
-  timeZone: string;
-  dateTime: string;
-  place: string | null;
-  comment: string;
-  organizer: IOrganizer;
-  mark: boolean;
+  id: string
+  name: string
+  description: string
+  descriptionUrl: string
+  type: string
+  timeZone: string
+  dateTime: string
+  place: string | null
+  comment: string
+  organizer: IOrganizer
+  mark: boolean
 }
 
 export interface IOrganizer {

@@ -1,4 +1,4 @@
-import { ISchedule, IEvent, Role, Template } from './types';
+import { ISchedule, IEvent, Role, Template } from './types'
 
 export const selectEvents = (store: ISchedule): IEvent[] => store.events;
 export const selectRole = (store: ISchedule): Role => store.role;
