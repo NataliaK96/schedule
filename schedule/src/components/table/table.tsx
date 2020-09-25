@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Table, Tag, Checkbox } from 'antd';
+import { Table, Tag } from 'antd';
 import {connect} from 'react-redux';
 import {selectorEvents} from '../../redux/selectors'; 
 import {ISchedule, IEvent} from '../../redux/types';
@@ -8,6 +8,7 @@ import {ISchedule, IEvent} from '../../redux/types';
 const TableComponent = (props: { events: IEvent[] }) => {
   
   const {events} = props;
+  console.log(events);
 
   const dataSource = events.map((eventsItem: IEvent) => {
   return {
@@ -18,7 +19,8 @@ const TableComponent = (props: { events: IEvent[] }) => {
     type: eventsItem.type,
     name: eventsItem.name,
     organizer: eventsItem.organizer,
-    comment: eventsItem.comment
+    comment: eventsItem.comment,
+    eventsItem: eventsItem
     }
   });
 
@@ -59,8 +61,9 @@ const TableComponent = (props: { events: IEvent[] }) => {
     },
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'eventsItem',
       key: 'name',
+      render: (eventsItem: IEvent) => <a href={eventsItem.descriptionUrl}>{eventsItem.name}</a>,
     },
     {
       title: 'Organizer',
@@ -75,12 +78,11 @@ const TableComponent = (props: { events: IEvent[] }) => {
   ];
 
   const rowSelection = {
-    getCheckboxProps: (record: any) => ({
-      name: record.name,
-    }),
+    getCheckboxProps: (record: { name: string }) => (
+      {name: record.name}
+    ),
   };
   
-
   return (
       <Table 
         rowSelection={{...rowSelection}}
