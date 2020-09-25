@@ -1,10 +1,6 @@
-import React from 'react'
-import { EventInfo } from '../EventInfo/EventInfo'
+import React from 'react';
+import { EventInfo } from '../EventInfo/EventInfo';
 
 export const Main = () => {
-  return (
-    <main>
-      <EventInfo />
-    </main>
-  )
-}
+  return <main></main>;
+};

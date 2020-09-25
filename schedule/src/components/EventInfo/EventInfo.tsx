@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Popover, Button, Tag } from 'antd';
+import { Popover, Button, Tag, Image } from 'antd';
 import {
+  AudioOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
   EditOutlined,
@@ -15,12 +16,15 @@ import {
 import { setEventInfoIsVisible } from '../../redux/actions';
 import style from './EventInfo.module.scss';
 import { TypeTag } from '..';
+import { IEvent } from '../../redux/types';
 
-type Props = {};
+type Props = {
+  event: IEvent;
+};
 
 export const EventInfo: React.FC<Props> = (props) => {
   const isVisible = useSelector(selectEventInfoIsVisible);
-  const event = useSelector(selectChooseEvent);
+  const event = props.event;
   const dispatch = useDispatch();
 
   const showModal = () => {
@@ -52,7 +56,7 @@ export const EventInfo: React.FC<Props> = (props) => {
       </div>
     </>
   );
-
+  const organizerGitHubId = event?.organizer.githubId;
   const content = (
     <div>
       <div className={style.row}>
@@ -72,6 +76,15 @@ export const EventInfo: React.FC<Props> = (props) => {
         ) : (
           <p className={style.place}>{event?.place}</p>
         )}
+      </div>
+      <div className={style.row}>
+        <AudioOutlined />
+        <a
+          className={style.organizer}
+          href={`https://github.com/${organizerGitHubId}`}
+        >
+          {organizerGitHubId}
+        </a>
       </div>
       <div className={style.row} style={{ alignItems: 'flex-start' }}>
         <UnorderedListOutlined style={{ paddingTop: 8 }} />

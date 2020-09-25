@@ -19,7 +19,7 @@ const initialState: ISchedule = {
     comment: 'Не забудьте, что кушать перед поезкой нельзя',
     organizer: {
       id: 'fnisfl',
-      githubId: 'Olys1703',
+      githubId: 'Nataliak96',
       name: 'зергей',
     },
     mark: false,
