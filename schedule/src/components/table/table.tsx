@@ -6,8 +6,8 @@ import {selectorEvents} from '../../redux/selectors';
 import {ISchedule, IEvent} from '../../redux/types';
 
 const TableComponent = (props: { events: IEvent[] }) => {
+  
   const {events} = props;
-  console.log(events)
 
   const dataSource = events.map((eventsItem: IEvent) => {
   return {
@@ -38,7 +38,6 @@ const TableComponent = (props: { events: IEvent[] }) => {
       title: '',
       dataIndex: 'status',
       key: 'status',
-      render: () => <Checkbox></Checkbox>
     },
     {
       title: 'Date',
@@ -74,9 +73,20 @@ const TableComponent = (props: { events: IEvent[] }) => {
       key: 'comment',
     },
   ];
+
+  const rowSelection = {
+    getCheckboxProps: (record: any) => ({
+      name: record.name,
+    }),
+  };
   
+
   return (
-    <Table dataSource={dataSource} columns={columns} />
+      <Table 
+        rowSelection={{...rowSelection}}
+        dataSource={dataSource}
+        columns={columns} 
+      />
   )
 }
 
