@@ -1,57 +1,93 @@
-import React, { useState } from 'react'
-import { Popover, Button } from 'antd'
-import { EditOutlined } from '@ant-design/icons'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { Popover, Button, Tag } from 'antd';
+import {
+  CalendarOutlined,
+  ClockCircleOutlined,
+  EditOutlined,
+  EnvironmentOutlined,
+  UnorderedListOutlined,
+} from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectChooseEvent,
   selectEventInfoIsVisible,
-} from '../../redux/selectors'
-import { setEventInfoIsVisible } from '../../redux/actions'
+} from '../../redux/selectors';
+import { setEventInfoIsVisible } from '../../redux/actions';
+import style from './EventInfo.module.scss';
+import { TypeTag } from '..';
 
-type Props = {}
+type Props = {};
 
 export const EventInfo: React.FC<Props> = (props) => {
-  const isVisible = useSelector(selectEventInfoIsVisible)
-  const event = useSelector(selectChooseEvent)
-  const dispatch = useDispatch()
+  const isVisible = useSelector(selectEventInfoIsVisible);
+  const event = useSelector(selectChooseEvent);
+  const dispatch = useDispatch();
 
   const showModal = () => {
-    dispatch(setEventInfoIsVisible(true))
-  }
+    dispatch(setEventInfoIsVisible(true));
+  };
 
   const handleOk = () => {
-    dispatch(setEventInfoIsVisible(false))
-  }
+    dispatch(setEventInfoIsVisible(false));
+  };
 
   const handleCancel = () => {
-    dispatch(setEventInfoIsVisible(false))
-  }
+    dispatch(setEventInfoIsVisible(false));
+  };
+  const time = new Date(event ? event.dateTime : '')
+    .toTimeString()
+    .substr(0, 5);
+  const date = new Date(event ? event.dateTime : '').toDateString();
+  const header = (
+    <>
+      <div className={style.header}>
+        <div className={style['title-wrapper']}>
+          <h6 className={style.title}>{event?.name}</h6>
+          <p className={style.subtitle}>{event?.description}</p>
+          <div style={{ paddingTop: 4 }}>
+            <TypeTag type={event?.type ? event.type : ''} />
+          </div>
+        </div>
+        <EditOutlined style={{ paddingTop: 7 }} />
+      </div>
+    </>
+  );
 
-  const title = (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
-      <h6>{event?.name}</h6>
-      <Button>
-        <EditOutlined />
-      </Button>
+  const content = (
+    <div>
+      <div className={style.row}>
+        <CalendarOutlined />
+        <p className={style.date}>{date}</p>
+      </div>
+      <div className={style.row}>
+        <ClockCircleOutlined />
+        <p className={style.time}>{time}</p>
+      </div>
+      <div className={style.row}>
+        <EnvironmentOutlined />
+        {event?.descriptionUrl ? (
+          <a className={style.link} href={event?.descriptionUrl}>
+            {event?.place}
+          </a>
+        ) : (
+          <p className={style.place}>{event?.place}</p>
+        )}
+      </div>
+      <div className={style.row} style={{ alignItems: 'flex-start' }}>
+        <UnorderedListOutlined style={{ paddingTop: 8 }} />
+        <p className={style.comment}>{event?.comment}</p>
+      </div>
     </div>
-  )
-
-  const content = <div></div>
+  );
 
   return (
     <div style={{ position: 'absolute', top: '200px' }}>
-      <Popover placement="top" title={title} content={content} trigger="click">
+      <Popover placement="top" title={header} content={content} trigger="click">
         <Button>{props.children}</Button>
       </Popover>
     </div>
-  )
-}
+  );
+};
 /*
 <>
       <Button type="primary" onClick={showModal}>

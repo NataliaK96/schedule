@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.subtitle {
+  opacity: 0.5;
+  font-size: 0.8em;
+  margin: 0;
+}
+.title {
+  font-size: 1rem;
+  margin: 0;
+}
+.title-wrapper {
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.link,
+.place,
+.time,
+.comment,
+.date {
+  margin: 0;
+  padding: 5px;
+}
+.comment {
+  max-width: 200px;
+  line-height: 1.3em;
+  font-size: 0.8em;
+}
