@@ -5,7 +5,6 @@ import { IEvent, ISchedule } from '../../redux/types'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import {
-  selectEvent,
   selectEvents,
 } from '../../redux/selectors'
 import { EventInfo } from '../EventInfo/EventInfo'
