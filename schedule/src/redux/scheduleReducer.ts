@@ -7,6 +7,7 @@ const initialState: ISchedule = {
   role: Role.student,
   events: [],
   template: Template.table,
+  timeZone: { name: 'Default', offset: -240 },
 };
 export const scheduleReducer = (
   state = initialState,
@@ -19,6 +20,10 @@ export const scheduleReducer = (
       return { ...state, isLoading: action.payload };
     case ScheduleActionTypes.SET_ERROR:
       return { ...state, isError: action.payload };
+    case ScheduleActionTypes.SET_TIMEZONE:
+      return { ...state, timeZone: action.payload };
+    case ScheduleActionTypes.SET_EVENTS:
+      return { ...state, events: action.payload };
     default:
       return state;
   }
