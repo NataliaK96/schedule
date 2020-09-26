@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Popover, Button, Tag, Image } from 'antd';
+import React, { useState } from 'react'
+import { Popover, Button, Tag, Image } from 'antd'
 import {
   AudioOutlined,
   CalendarOutlined,
@@ -7,41 +7,40 @@ import {
   EditOutlined,
   EnvironmentOutlined,
   UnorderedListOutlined,
-} from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
+} from '@ant-design/icons'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   selectChooseEvent,
   selectEventInfoIsVisible,
-} from '../../redux/selectors';
-import { setEventInfoIsVisible } from '../../redux/actions';
-import style from './EventInfo.module.scss';
-import { TypeTag } from '..';
-import { IEvent } from '../../redux/types';
+} from '../../redux/selectors'
+import { setEventInfoIsVisible } from '../../redux/actions'
+import style from './EventInfo.module.scss'
+import { TypeTag } from '..'
+import { IEvent } from '../../redux/types'
 
 type Props = {
-  event: IEvent;
-};
+  event: IEvent
+}
 
 export const EventInfo: React.FC<Props> = (props) => {
-  const isVisible = useSelector(selectEventInfoIsVisible);
-  const event = props.event;
-  const dispatch = useDispatch();
+  console.log(props.event)
+  const isVisible = useSelector(selectEventInfoIsVisible)
+  const event = props.event
+  const dispatch = useDispatch()
 
   const showModal = () => {
-    dispatch(setEventInfoIsVisible(true));
-  };
+    dispatch(setEventInfoIsVisible(true))
+  }
 
   const handleOk = () => {
-    dispatch(setEventInfoIsVisible(false));
-  };
+    dispatch(setEventInfoIsVisible(false))
+  }
 
   const handleCancel = () => {
-    dispatch(setEventInfoIsVisible(false));
-  };
-  const time = new Date(event ? event.dateTime : '')
-    .toTimeString()
-    .substr(0, 5);
-  const date = new Date(event ? event.dateTime : '').toDateString();
+    dispatch(setEventInfoIsVisible(false))
+  }
+  const time = new Date(event ? event.dateTime : '').toTimeString().substr(0, 5)
+  const date = new Date(event ? event.dateTime : '').toDateString()
   const header = (
     <>
       <div className={style.header}>
@@ -55,8 +54,8 @@ export const EventInfo: React.FC<Props> = (props) => {
         <EditOutlined style={{ paddingTop: 7 }} />
       </div>
     </>
-  );
-  const organizerGitHubId = event?.organizer.githubId;
+  )
+  const organizerGitHubId = event?.organizer.githubId
   const content = (
     <div>
       <div className={style.row}>
@@ -91,16 +90,16 @@ export const EventInfo: React.FC<Props> = (props) => {
         <p className={style.comment}>{event?.comment}</p>
       </div>
     </div>
-  );
+  )
 
   return (
-    <div style={{ position: 'absolute', top: '200px' }}>
+    <div>
       <Popover placement="top" title={header} content={content} trigger="click">
-        <Button>{props.children}</Button>
+        <div>{props.children}</div>
       </Popover>
     </div>
-  );
-};
+  )
+}
 /*
 <>
       <Button type="primary" onClick={showModal}>

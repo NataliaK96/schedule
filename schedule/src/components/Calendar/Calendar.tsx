@@ -5,13 +5,10 @@ import { IEvent, ISchedule } from '../../redux/types'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import {
-  selectorEvents,
-  selectorEvent,
-  selectorIsCalendarEventShown,
-  selectorCalendarEventId,
+  selectEvent,
+  selectEvents,
 } from '../../redux/selectors'
-import EventModal from './EventModal/EventModal'
-import { setCalendarEventId, showCalendarEvent } from '../../redux/actions'
+import { EventInfo } from '../EventInfo/EventInfo'
 
 interface IFormattedData {
   [key: string]: IEvent[]
@@ -56,7 +53,6 @@ function getDayData(time: any, formattedData: IFormattedData): IEvent[] {
 function dateCellRender(
   time: any,
   formattedData: IFormattedData,
-  onEventClick: Function
 ) {
   const dayData = getDayData(time, formattedData)
 
@@ -65,10 +61,11 @@ function dateCellRender(
       {dayData.map((event, index) => {
         const type = event.type
         const name = event.name
-        const id = event.id
         return (
-          <li onClick={() => onEventClick(id)} key={index}>
-            <Badge color={COLORS[type]} text={name} />
+          <li key={index}>
+            <EventInfo event={event}>
+              <Badge color={COLORS[type]} text={name} />
+            </EventInfo>
           </li>
         )
       })}
@@ -78,33 +75,17 @@ function dateCellRender(
 
 interface Props {
   data: IEvent[]
-  getEvent: Function
-  isCalendarEventShown: boolean
-  showCalendarEvent: Function
-  setCalendarEventId: Function
-  calendarEventId: string
 }
 
 const Calendar: React.FC<Props> = (props) => {
   const formattedData: IFormattedData = formatData(props.data)
-  console.log(props.calendarEventId)
-
-  const onEventClick = (id: string) => {
-    props.setCalendarEventId(id)
-    props.showCalendarEvent(true)
-  }
 
   return (
     <>
       <CalendarElement
         dateCellRender={(time) =>
-          dateCellRender(time, formattedData, onEventClick)
+          dateCellRender(time, formattedData)
         }
-      />
-      <EventModal
-        event={props.getEvent(props.calendarEventId)}
-        isCalendarEventShown={props.isCalendarEventShown}
-        showCalendarEvent={props.showCalendarEvent}
       />
     </>
   )
@@ -112,18 +93,8 @@ const Calendar: React.FC<Props> = (props) => {
 
 const mapStateToProps = (store: ISchedule) => {
   return {
-    data: selectorEvents(store),
-    getEvent: (id: string) => selectorEvent(store, id),
-    isCalendarEventShown: selectorIsCalendarEventShown(store),
-    calendarEventId: selectorCalendarEventId(store),
+    data: selectEvents(store),
   }
 }
 
-const mapDispatchToProps = (dispatch: Function) => {
-  return {
-    showCalendarEvent: (show: boolean) => dispatch(showCalendarEvent(show)),
-    setCalendarEventId: (id: string) => dispatch(setCalendarEventId(id)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
+export default connect(mapStateToProps)(Calendar)

@@ -26,7 +26,7 @@ const initialState: ISchedule = {
   },
   eventEditIsVisible: false,
   eventInfoIsVisible: false,
-};
+}
 export const scheduleReducer = (
   state = initialState,
   action: { type: string; payload?: any } = initAction()
@@ -37,11 +37,11 @@ export const scheduleReducer = (
     case ScheduleActionTypes.SET_LOADING:
       return { ...state, isLoading: action.payload }
     case ScheduleActionTypes.SET_ERROR:
-      return { ...state, isError: action.payload };
+      return { ...state, isError: action.payload }
     case ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE:
-      return { ...state, eventEditIsVisible: action.payload };
+      return { ...state, eventEditIsVisible: action.payload }
     case ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE:
-      return { ...state, eventInfoIsVisible: action.payload };
+      return { ...state, eventInfoIsVisible: action.payload }
     default:
       return state
   }

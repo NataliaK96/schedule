@@ -23,15 +23,15 @@ export const setEventInfoIsVisible = (value: boolean) => {
   return {
     type: ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE,
     payload: value,
-  };
-};
+  }
+}
 
 export const setEventEditIsVisible = (value: boolean) => {
   return {
     type: ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE,
     payload: value,
-  };
-};
+  }
+}
 
 export const getScheduleAsync = () => async (dispatch: any) => {
   dispatch(setLoading(true))
@@ -62,18 +62,4 @@ export const postEvent = (event: IEvent) => async (dispatch: any) => {
     dispatch(setError(true))
   }
   dispatch(setLoading(false))
-}
-
-export const showCalendarEvent = (show: boolean) => {
-  return {
-    type: ScheduleActionTypes.SHOW_CALENDAR_EVENT,
-    payload: show,
-  }
-}
-
-export const setCalendarEventId = (id: string) => {
-  return {
-    type: ScheduleActionTypes.SET_CALENDAR_EVENT_ID,
-    payload: id,
-  }
 }

@@ -23,14 +23,14 @@ export enum ScheduleActionTypes {
 }
 
 export interface ISchedule {
-  isLoading: boolean;
-  isError: boolean;
-  role: Role;
-  template: Template;
-  events: IEvent[];
-  chooseEvent: IEvent | null;
-  eventInfoIsVisible: boolean;
-  eventEditIsVisible: boolean;
+  isLoading: boolean
+  isError: boolean
+  role: Role
+  template: Template
+  events: IEvent[]
+  chooseEvent: IEvent | null
+  eventInfoIsVisible: boolean
+  eventEditIsVisible: boolean
 }
 
 export enum Template {
@@ -58,7 +58,7 @@ export interface IEvent {
 }
 
 export interface IOrganizer {
-  name: string;
-  githubId: string;
-  id: string;
+  name: string
+  githubId: string
+  id: string
 }
