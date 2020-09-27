@@ -39,6 +39,12 @@ export const scheduleReducer = (
       return { ...state, isLoading: action.payload };
     case ScheduleActionTypes.SET_ERROR:
       return { ...state, isError: action.payload };
+    case ScheduleActionTypes.SET_ROLE:
+      return {...state, role: action.payload};
+    case ScheduleActionTypes.CHOOSE_TABLE:
+      return {...state, template: action.payload};
+    case ScheduleActionTypes.CHOOSE_CALENDARE:
+      return {...state, template: action.payload}
     case ScheduleActionTypes.SET_TIMEZONE:
       return { ...state, timeZone: action.payload };
     case ScheduleActionTypes.SET_EVENTS:

@@ -19,6 +19,27 @@ export const setError = (value: boolean) => {
   };
 };
 
+export const setRole = (value: string) => {
+  return {
+    type: ScheduleActionTypes.SET_ROLE,
+    payload: value,
+  };
+};
+
+export const chooseTable = (value:string) => {
+  return {
+    type: ScheduleActionTypes.CHOOSE_TABLE,
+    payload: value
+  };
+}; 
+
+export const chooseCalendar = (value:string) => {
+  return {
+    type: ScheduleActionTypes.CHOOSE_CALENDARE,
+    payload: value
+  };
+}; 
+
 export const setEvents = (events: IEvent[]) => {
   return {
     type: ScheduleActionTypes.SET_EVENTS,

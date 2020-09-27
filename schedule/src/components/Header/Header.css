@@ -1,5 +1,259 @@
 .header {
   width: 100%;
+  min-height: 120px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+.header__content-conteiner {
+  width: 40%;
+  min-width: 320px;
+  height: 100%;
+  margin: auto;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: inherit;
+}
+.navigation-conteiner {
+  justify-content: flex-start;
+}
+
+.profile-conteiner {
+  justify-content: flex-end;
+}
+
+.header__title {
+  width: 70%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.header__title:hover {
+  color: inherit;
+}
+
+/*************change template button*************************/
+
+.header__button {
+  width: 40px;
+  height: 40px;
+  margin: auto 20px;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, .2);
+  z-index: 10;
+}
+
+.calendar-image {
+  background-image: url("../../images/calendar-icon.png");
+}
+
+.table-image {
+  background-image: url("../../images/table-icon.png");
+}
+
+.header__button:focus {
+  outline-color: transparent;
+}
+
+/******************toggle button ***********************************/
+
+button[type="button"].ant-switch {
+  width: 150px;
+  height: 40px;
+  margin: auto 10px;
+  padding-top: 5px;
+  padding-left: 40px;
+  position: relative;
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(98, 97, 105, 0.5);
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  box-sizing: border-box;
+}
+
+div.ant-switch-handle {
+  transform: translate(-10px, -3px);
+}
+div.ant-switch-handle::before {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+}
+button[type="button"].ant-switch-checked {
+  background-color: rgb(141, 165, 189);
+}
+
+span.ant-switch-inner {
+  transform: translate(-15px, -4px);
+  font-size: 20px;
+}
+
+/*************************profile button**************************************/
+
+.header__profile-button {
+  width: 140px;
+  height: 40px;
+  margin: auto 50px;
+  padding-top: 6px;
+  padding-left: 15px;
+  align-self: flex-end;
+  display: block;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
+  background-size: 30px;
+  background-position: left;
+  background-repeat: no-repeat;
+  border: 1px dashed rgb(141, 165, 189);
+  box-sizing: border-box;
+}
+.header__profile-button:hover {
+  color: inherit;
+}
+
+/********************************mobile max-width 800px**************************/
+/********************************************************************************/
+
+@media screen and (max-width: 800px){
+
+  .header__title {
+    font-size: 24px;
+  }
+
+  .navigation-conteiner {
+    width: 30%;
+    margin: auto 10px;
+  }
+
+  .profile-conteiner {
+    width: 50%;
+    margin: auto 10px;
+
+  }
+  /*************change template button*************************/
+
+  .header__button {
+    width: 30px;
+    height: 30px;
+  }
+
+  /******************toggle button ***********************************/
+  
+  button[type="button"].ant-switch {
+    width: 180px;
+    font-size: 18px;
+  }
+  
+  /*************************profile button**************************************/
+  
+  .header__profile-button {
+    width: 180px;
+    height: 40px;
+    margin: auto 20px;
+  }
+}
+
+/********************************mobile max-width 400px**************************/
+
+@media screen and (max-width: 450px){
+  .header{
+    min-height: 80px;
+    padding: 0;
+  }
+
+  .header__title {
+    width: 50px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .navigation-conteiner {
+    min-width: 80px;
+    margin: auto 0;
+  }
+
+  .profile-conteiner {
+    min-width: 180px;
+    margin: auto 0;
+  }
+  /*************change template button*************************/
+
+  .header__button {
+    width: 30px;
+    height: 30px;
+    margin: auto 10px auto 0;    
+  }
+
+  /******************toggle button ***********************************/
+  
+  button[type="button"].ant-switch {
+    width: 120px;
+    height: 30px;
+    margin: auto 10px auto 5px;
+    font-size: 12px;
+    padding-left: 20px;
+  }
+ 
+  div.ant-switch-handle::before {
+    width: 30px;
+    height: 30px;
+  }
+
+  span.ant-switch-inner {
+    font-size: 12px;
+  }
+
+  /*************************profile button**************************************/
+  .header__profile-button {
+    width: 100px;
+    height: 30px;
+    margin: auto 0;
+    padding-top: 4px;
+    padding-left: 10px;
+    font-size: 12px;
+    background-size: 15px;
+  }
+}
+
+
+=======
+.header {
+  width: 100%;
   min-height: 40px;
   margin: 0;
   padding: 0;
