@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent } from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone, Role } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -26,12 +26,52 @@ export const setPosting = (value: boolean) => {
   };
 };
 
-// export const setEvent = (event: IEvent) => {
+// export const setRole = (role: Role) => {
 //   return {
-//     type: ScheduleActionTypes.SET_EVENT,
-//     payload: event,
+//     type: ScheduleActionTypes.SET_ROLE,
+//     payload: role,
 //   };
 // };
+
+export const changeRole = () => {
+  return {
+    type: ScheduleActionTypes.CHANGE_ROLE,
+  };
+};
+
+export const changeTemplate = () => {
+  return {
+    type: ScheduleActionTypes.CHANGE_TEMPLATE,
+  };
+};
+
+// export const chooseTable = (value: string) => {
+//   return {
+//     type: ScheduleActionTypes.CHOOSE_TABLE,
+//     payload: value,
+//   };
+// };
+
+// export const chooseCalendar = (value: string) => {
+//   return {
+//     type: ScheduleActionTypes.CHOOSE_CALENDARE,
+//     payload: value,
+//   };
+// };
+
+export const setEvents = (events: IEvent[]) => {
+  return {
+    type: ScheduleActionTypes.SET_EVENTS,
+    payload: events,
+  };
+};
+
+export const setTimeZone = (value: ITimeZone) => {
+  return {
+    type: ScheduleActionTypes.SET_TIMEZONE,
+    payload: value,
+  };
+};
 
 export const getScheduleAsync = () => async (dispatch: any) => {
   dispatch(setLoading(true));

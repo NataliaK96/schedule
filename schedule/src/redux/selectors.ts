@@ -1,4 +1,4 @@
-import { ISchedule, IEvent, Role, Template } from './types';
+import { ISchedule, IEvent, Role, Template, ITimeZone } from './types';
 
 export const selectEvents = (store: ISchedule): IEvent[] => store.events;
 export const selectRole = (store: ISchedule): Role => store.role;
@@ -29,6 +29,7 @@ export const selectEventType = (
   );
   return findEvent?.type;
 };
+export const selectTimeZone = (store: ISchedule): ITimeZone => store.timeZone;
 export const selectChooseEvent = (store: ISchedule): IEvent | null => {
   return store.chooseEvent;
 };

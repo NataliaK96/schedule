@@ -14,6 +14,7 @@ const initialState: ISchedule = {
   role: Role.student,
   events: [],
   template: Template.table,
+  timeZone: { name: 'Default', offset: -240 },
   chooseEvent: {
     id: 'sfnnfeslf',
     name: 'Встреча у бабушки',
@@ -47,18 +48,30 @@ export const scheduleReducer = (
       return { ...state, isError: action.payload };
     case ScheduleActionTypes.SET_POSTING:
       return { ...state, isPosting: action.payload };
-    // case ScheduleActionTypes.SET_EVENT: {
-    //   const events = state.events.concat();
-    //   const findEvent = events.findIndex(
-    //     (event: IEvent) => event.id === action.payload.id
-    //   );
-    //   if (findEvent !== -1) {
-    //     events[findEvent] = action.payload;
-    //   } else {
-    //     events.push(action.payload);
-    //   }
-    //   return { ...state, events: events };
-    // }
+    // case ScheduleActionTypes.SET_ROLE:
+    //   return { ...state, role: action.payload };
+    case ScheduleActionTypes.CHANGE_ROLE: {
+      if (state.role === Role.student) {
+        return { ...state, role: Role.mentor };
+      } else {
+        return { ...state, role: Role.student };
+      }
+    }
+    case ScheduleActionTypes.CHANGE_TEMPLATE: {
+      if (state.template === Template.calendar) {
+        return { ...state, template: Template.table };
+      } else {
+        return { ...state, template: Template.calendar };
+      }
+    }
+    // case ScheduleActionTypes.CHOOSE_TABLE:
+    //   return { ...state, template: action.payload };
+    // case ScheduleActionTypes.CHOOSE_CALENDARE:
+    //   return { ...state, template: action.payload };
+    case ScheduleActionTypes.SET_TIMEZONE:
+      return { ...state, timeZone: action.payload };
+    case ScheduleActionTypes.SET_EVENTS:
+      return { ...state, events: action.payload };
     default:
       return state;
   }

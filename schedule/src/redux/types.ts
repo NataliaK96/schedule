@@ -9,12 +9,15 @@ export enum ScheduleActionTypes {
 
   SET_MARK = '@@schedule/SET_MARK',
 
-  SET_ROLE = '@@schedule/SET_ROLE',
+  CHANGE_ROLE = '@@schedule/CHANGE_ROLE',
+  // SET_ROLE = '@@schedule/SET_ROLE',
+  GET_ROLE = '@@schedule/GET_ROLE',
 
   SET_TIMEZONE = '@@schedule/SET_TIMEZONE',
 
-  CHOOSE_CALENDARE = '@@schedule/CHOOSE_CALENDARE',
-  CHOOSE_TABLE = '@@schedule/CHOOSE_TABLE',
+  // CHOOSE_CALENDARE = '@@schedule/CHOOSE_CALENDARE',
+  // CHOOSE_TABLE = '@@schedule/CHOOSE_TABLE',
+  CHANGE_TEMPLATE = '@@schedule/CHANGE_TEMPLATE',
 
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
@@ -22,6 +25,16 @@ export enum ScheduleActionTypes {
   SET_EVENT = '@@schedule/SET_EVENT',
 
   SET_POSTING = '@@schedule/SET_POSTING',
+  SET_EVENTS = '@@schedule/SET_EVENTS',
+}
+
+export interface ISchedule {
+  isLoading: boolean;
+  isError: boolean;
+  role: Role;
+  template: Template;
+  events: IEvent[];
+  timeZone: ITimeZone;
 }
 
 export interface ISchedule {
@@ -69,4 +82,8 @@ export interface IOrganizer {
 export interface IType {
   name: string;
   color: string;
+}
+export interface ITimeZone {
+  name: string;
+  offset: number;
 }

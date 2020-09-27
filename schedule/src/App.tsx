@@ -10,6 +10,10 @@ import {
   selectEvents,
   selectIsLoading,
 } from './redux/selectors';
+import { Main } from './components/Main/Main';
+import { Header } from './components/Header/Header';
+import 'antd/dist/antd.css';
+import Calendar from './components/Calendar/Calendar';
 
 function App() {
   const isLoading = useSelector(selectIsLoading);
@@ -24,21 +28,18 @@ function App() {
   };
   return (
     <div className="App">
-      <Spin spinning={isLoading} tip="Loading..." />
-      <Button type="primary" onClick={showModal}>
-        Show Modal
-      </Button>
-      {events[0] ? (
-        <EventEdit
-          event={events[0]}
-          isVisible={isVisible}
-          onClose={() => {
-            setVisible(false);
-          }}
-        />
-      ) : undefined}
-      {events[0] ? <EventInfo event={events[0]}>Pick</EventInfo> : undefined}
-      <EventCreate />
+      <Header></Header>
+      <Main>
+        <div style={{ display: 'flex' }}>
+          <Calendar />
+        </div>
+      </Main>
+      {isLoading && (
+        <div className="spinner-wrapper">
+          <Spin spinning={true} tip="Loading..." />
+        </div>
+      )}
+      {/* {event ? <EventInfo event={event}>Pick</EventInfo> : undefined} */}
     </div>
   );
 }

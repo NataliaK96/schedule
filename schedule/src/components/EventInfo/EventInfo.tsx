@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover, Button } from 'antd';
+import { Popover } from 'antd';
 import {
   AudioOutlined,
   CalendarOutlined,
@@ -9,6 +9,7 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 //import { useDispatch } from 'react-redux';
+
 import style from './EventInfo.module.scss';
 import { TypeTag } from '..';
 import { IEvent } from '../../redux/types';
@@ -18,21 +19,9 @@ type Props = {
 };
 
 export const EventInfo: React.FC<Props> = (props) => {
-  //const isVisible = useSelector(selectEventInfoIsVisible);
+  console.log(props.event);
   const event = props.event;
-  //const dispatch = useDispatch();
 
-  // const showModal = () => {
-  //   dispatch(setEventInfoIsVisible(true));
-  // };
-
-  // const handleOk = () => {
-  //   dispatch(setEventInfoIsVisible(false));
-  // };
-
-  // const handleCancel = () => {
-  //   dispatch(setEventInfoIsVisible(false));
-  // };
   const time = new Date(event ? event.dateTime : '')
     .toTimeString()
     .substr(0, 5);
@@ -89,49 +78,10 @@ export const EventInfo: React.FC<Props> = (props) => {
   );
 
   return (
-    <div style={{ position: 'absolute', top: '200px' }}>
+    <div>
       <Popover placement="top" title={header} content={content} trigger="click">
-        <Button>{props.children}</Button>
+        <div>{props.children}</div>
       </Popover>
     </div>
   );
 };
-/*
-<>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with customized footer
-      </Button>
-      <Modal
-        visible={isVisible}
-        title={event?.name}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={[
-          // <Button key="back" onClick={handleCancel}>
-          //   Return
-          // </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            // loading={loading}
-            onClick={handleOk}
-          >
-            OK
-          </Button>,
-        ]}
-      >
-        <div>
-          <p>Дата и время:</p>
-          <p>{event?.dateTime}</p>
-        </div>
-        <div>
-          <p>Комментарий:</p>
-          <p>{event?.comment}</p>
-        </div>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    </>
-*/
