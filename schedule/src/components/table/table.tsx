@@ -1,38 +1,39 @@
 import React from 'react';
-import 'antd/dist/antd.css';
-import { Table, Tag } from 'antd';
-import {connect} from 'react-redux';
-import {selectorEvents} from '../../redux/selectors'; 
-import {ISchedule, IEvent} from '../../redux/types';
+import './Table.css';
+import { Table as TebleAntd, Tag } from 'antd';
+import { connect } from 'react-redux';
+import { selectEvents } from '../../redux/selectors';
+import { ISchedule, IEvent, IOrganizer } from '../../redux/types';
+import moment from 'moment';
 
-const TableComponent = (props: { events: IEvent[] }) => {
-  
-  const {events} = props;
+const Table = (props: { events: IEvent[] }) => {
+  const { events } = props;
   console.log(events);
 
   const dataSource = events.map((eventsItem: IEvent) => {
-  return {
-    key: eventsItem.id,
-    status: eventsItem.mark,
-    date: eventsItem.dateTime.slice(0, 10),
-    time: eventsItem.dateTime.slice(11, 16),
-    type: eventsItem.type,
-    name: eventsItem.name,
-    organizer: eventsItem.organizer,
-    comment: eventsItem.comment,
-    eventsItem: eventsItem
-    }
+    return {
+      key: eventsItem.id,
+      status: eventsItem.mark,
+      date: moment(eventsItem.dateTime).format('YYYY-MM-DD'),
+      time: moment(eventsItem.dateTime).format('hh:mm'),
+      type: eventsItem.type,
+      name: eventsItem.name,
+      organizer: eventsItem.organizer,
+      comment: eventsItem.comment,
+      eventsItem: eventsItem,
+    };
   });
 
   const typesArray = events.map((event: IEvent) => event.type);
-  const filterTypesArray = typesArray.filter((item: string, index: number) => typesArray.indexOf(item) === index)
-
+  const filterTypesArray = typesArray.filter(
+    (item: string, index: number) => typesArray.indexOf(item) === index
+  );
 
   const filtersArr = filterTypesArray.map((type: string) => {
     return {
       text: type,
       value: type,
-    }
+    };
   });
 
   const columns = [
@@ -63,12 +64,21 @@ const TableComponent = (props: { events: IEvent[] }) => {
       title: 'Name',
       dataIndex: 'eventsItem',
       key: 'name',
-      render: (eventsItem: IEvent) => <a href={eventsItem.descriptionUrl}>{eventsItem.name}</a>,
+      render: (eventsItem: IEvent) => (
+        <a target="_blank" href={eventsItem.descriptionUrl}>
+          {eventsItem.name}
+        </a>
+      ),
     },
     {
       title: 'Organizer',
       dataIndex: 'organizer',
       key: 'organizer',
+      render: (organizer: IOrganizer) => (
+        <a target="_blank" href={`https://github.com/${organizer.githubId}`}>
+          {organizer.name}
+        </a>
+      ),
     },
     {
       title: 'Comment',
@@ -78,20 +88,19 @@ const TableComponent = (props: { events: IEvent[] }) => {
   ];
 
   const rowSelection = {
-    getCheckboxProps: (record: { name: string }) => (
-      {name: record.name}
-    ),
+    getCheckboxProps: (record: { name: string }) => ({ name: record.name }),
   };
-  
+
   return (
-      <Table 
-        rowSelection={{...rowSelection}}
-        dataSource={dataSource}
-        columns={columns} 
-      />
-  )
-}
+    <TebleAntd
+      style={{ marginTop: 20 }}
+      rowSelection={{ ...rowSelection }}
+      dataSource={dataSource}
+      columns={columns}
+    />
+  );
+};
 
-const mapStateToProps = (store: ISchedule)=>({events: selectorEvents(store)})
+const mapStateToProps = (store: ISchedule) => ({ events: selectEvents(store) });
 
-export default connect(mapStateToProps)(TableComponent);
+export default connect(mapStateToProps)(Table);
