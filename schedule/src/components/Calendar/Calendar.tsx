@@ -11,15 +11,21 @@ interface IFormattedData {
   [key: string]: IEvent[];
 }
 
-interface IColors {
-  [key: string]: string;
-}
-
-const COLORS: IColors = {
-  deadline: 'red',
-  youtube: 'orange',
-  task: 'green',
-  ['YouTube Live']: 'orange',
+const getColor = (type: string): string => {
+  let color: string;
+  switch (type) {
+    case 'online':
+      color = 'blue';
+    case 'deadline':
+      color = 'red';
+    case 'js task':
+      color = 'green';
+    case 'test':
+      color = 'purple';
+    default:
+      color = 'gold';
+  }
+  return color;
 };
 
 const formatData = function (data: IEvent[]): IFormattedData {
@@ -58,7 +64,7 @@ function dateCellRender(time: any, formattedData: IFormattedData) {
         return (
           <li key={index}>
             <EventInfo event={event}>
-              <Badge color={COLORS[type]} text={name} />
+              <Badge color={getColor(type)} text={name} />
             </EventInfo>
           </li>
         );
