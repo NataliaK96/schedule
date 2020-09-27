@@ -8,6 +8,7 @@ import {
   EnvironmentOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
+//import { useDispatch } from 'react-redux';
 
 import style from './EventInfo.module.scss';
 import { TypeTag } from '..';
