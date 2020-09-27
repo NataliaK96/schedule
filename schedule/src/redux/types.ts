@@ -19,6 +19,8 @@ export enum ScheduleActionTypes {
 
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
+
+  SET_EVENTS = '@@schedule/SET_EVENTS',
 }
 
 export interface ISchedule {
@@ -27,6 +29,18 @@ export interface ISchedule {
   role: Role;
   template: Template;
   events: IEvent[];
+  timeZone: ITimeZone;
+}
+
+export interface ISchedule {
+  isLoading: boolean;
+  isError: boolean;
+  role: Role;
+  template: Template;
+  events: IEvent[];
+  chooseEvent: IEvent | null;
+  eventInfoIsVisible: boolean;
+  eventEditIsVisible: boolean;
 }
 
 export enum Template {
@@ -55,5 +69,11 @@ export interface IEvent {
 
 export interface IOrganizer {
   name: string;
-  githubLink: string;
+  githubId: string;
+  id: string;
+}
+
+export interface ITimeZone {
+  name: string;
+  offset: number;
 }

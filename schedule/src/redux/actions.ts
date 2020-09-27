@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent} from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -39,6 +39,20 @@ export const chooseCalendar = (value:string) => {
     payload: value
   };
 }; 
+
+export const setEvents = (events: IEvent[]) => {
+  return {
+    type: ScheduleActionTypes.SET_EVENTS,
+    payload: events,
+  };
+};
+
+export const setTimeZone = (value: ITimeZone) => {
+  return {
+    type: ScheduleActionTypes.SET_TIMEZONE,
+    payload: value,
+  };
+};
 
 export const getScheduleAsync = () => async (dispatch: any) => {
   dispatch(setLoading(true));
