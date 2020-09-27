@@ -1,12 +1,30 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import './App.css';
-import { getScheduleAsync } from './redux/actions';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import './App.css'
+import { getScheduleAsync } from './redux/actions'
+import { EventInfo, Header, Main } from './components'
+import 'antd/dist/antd.css'
+import { Button, Spin } from 'antd'
+import Calendar from './components/Calendar/Calendar'
+import { selectChooseEvent, selectIsLoading } from './redux/selectors'
+import useSelection from 'antd/lib/table/hooks/useSelection'
 
 function App() {
-  const dispatch = useDispatch();
-  dispatch(getScheduleAsync());
-  return <div className="App"></div>;
+  const isLoading = useSelector(selectIsLoading)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getScheduleAsync())
+  }, [])
+  const event = useSelector(selectChooseEvent)
+  return (
+    <div className="App">
+      <Spin spinning={isLoading} tip="Loading..." />
+      {/* <Header></Header>
+      <Main></Main> */}
+      <Calendar />
+      {/* {event ? <EventInfo event={event}>Pick</EventInfo> : undefined} */}
+    </div>
+  )
 }
 
-export default App;
+export default App
