@@ -8,11 +8,30 @@ const initialState: ISchedule = {
   events: [],
   template: Template.table,
   timeZone: { name: 'Default', offset: -240 },
+  chooseEvent: {
+    id: 'sfnnfeslf',
+    name: 'Встреча у бабушки',
+    description: 'Мы встречаемся у бабушки',
+    descriptionUrl: 'хттп://бабушка.рф',
+    type: 'deadline',
+    timeZone: '-240',
+    dateTime: '2020-09-14T23:59',
+    place: 'Домик в деревне',
+    comment: 'Не забудьте, что кушать перед поезкой нельзя',
+    organizer: {
+      id: 'fnisfl',
+      githubId: 'Nataliak96',
+      name: 'зергей',
+    },
+    mark: false,
+  },
+  eventEditIsVisible: false,
+  eventInfoIsVisible: false,
 };
 export const scheduleReducer = (
   state = initialState,
   action: { type: string; payload?: any } = initAction()
-) => {
+): ISchedule => {
   switch (action.type) {
     case ScheduleActionTypes.FETCH_SCHEDULE:
       return { ...state, events: action.payload };

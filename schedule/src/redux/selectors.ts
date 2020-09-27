@@ -30,3 +30,6 @@ export const selectEventType = (
   return findEvent?.type;
 };
 export const selectTimeZone = (store: ISchedule): ITimeZone => store.timeZone;
+export const selectChooseEvent = (store: ISchedule): IEvent | null => {
+  return store.chooseEvent;
+};

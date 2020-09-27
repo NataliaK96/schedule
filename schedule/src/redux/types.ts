@@ -30,6 +30,17 @@ export interface ISchedule {
   timeZone: ITimeZone;
 }
 
+export interface ISchedule {
+  isLoading: boolean;
+  isError: boolean;
+  role: Role;
+  template: Template;
+  events: IEvent[];
+  chooseEvent: IEvent | null;
+  eventInfoIsVisible: boolean;
+  eventEditIsVisible: boolean;
+}
+
 export enum Template {
   calendar = 'calendar',
   table = 'table',
@@ -56,7 +67,8 @@ export interface IEvent {
 
 export interface IOrganizer {
   name: string;
-  githubLink: string;
+  githubId: string;
+  id: string;
 }
 
 export interface ITimeZone {

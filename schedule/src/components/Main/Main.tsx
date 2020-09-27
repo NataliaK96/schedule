@@ -3,7 +3,7 @@ import style from './Main.module.scss';
 import { Download } from './Download/Download';
 import { TimeZone } from './TimeZone/TimeZone';
 
-export const Main = (props: any) => {
+export const Main: React.FC = (props) => {
   return (
     <main className={style.main}>
       <div className={style.head}>
