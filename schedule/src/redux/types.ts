@@ -18,19 +18,27 @@ export enum ScheduleActionTypes {
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
 
-  SET_EVENT_INFO_IS_VISIBLE = '@@schedule/SET_EVENT_INFO_IS_VISIBLE',
-  SET_EVENT_EDIT_IS_VISIBLE = '@@schedule/SET_EVENT_EDIT_IS_VISIBLE',
+  SET_EVENTS = '@@schedule/SET_EVENTS',
 }
 
 export interface ISchedule {
-  isLoading: boolean
-  isError: boolean
-  role: Role
-  template: Template
-  events: IEvent[]
-  chooseEvent: IEvent | null
-  eventInfoIsVisible: boolean
-  eventEditIsVisible: boolean
+  isLoading: boolean;
+  isError: boolean;
+  role: Role;
+  template: Template;
+  events: IEvent[];
+  timeZone: ITimeZone;
+}
+
+export interface ISchedule {
+  isLoading: boolean;
+  isError: boolean;
+  role: Role;
+  template: Template;
+  events: IEvent[];
+  chooseEvent: IEvent | null;
+  eventInfoIsVisible: boolean;
+  eventEditIsVisible: boolean;
 }
 
 export enum Template {
@@ -44,21 +52,26 @@ export enum Role {
 }
 
 export interface IEvent {
-  id: string
-  name: string
-  description: string
-  descriptionUrl: string
-  type: string
-  timeZone: string
-  dateTime: string
-  place: string | null
-  comment: string
-  organizer: IOrganizer
-  mark: boolean
+  id: string;
+  name: string;
+  description: string;
+  descriptionUrl: string;
+  type: string;
+  timeZone: string;
+  dateTime: string;
+  place: string | null;
+  comment: string;
+  organizer: IOrganizer;
+  mark: boolean;
 }
 
 export interface IOrganizer {
-  name: string
-  githubId: string
-  id: string
+  name: string;
+  githubId: string;
+  id: string;
+}
+
+export interface ITimeZone {
+  name: string;
+  offset: number;
 }

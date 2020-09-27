@@ -1,5 +1,5 @@
-import { ScheduleActionTypes, ISchedule, Role, Template } from './types'
-import { initAction } from './actions'
+import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
+import { initAction } from './actions';
 
 const initialState: ISchedule = {
   isLoading: false,
@@ -7,6 +7,7 @@ const initialState: ISchedule = {
   role: Role.student,
   events: [],
   template: Template.table,
+  timeZone: { name: 'Default', offset: -240 },
   chooseEvent: {
     id: 'sfnnfeslf',
     name: 'Встреча у бабушки',
@@ -26,23 +27,23 @@ const initialState: ISchedule = {
   },
   eventEditIsVisible: false,
   eventInfoIsVisible: false,
-}
+};
 export const scheduleReducer = (
   state = initialState,
   action: { type: string; payload?: any } = initAction()
 ): ISchedule => {
   switch (action.type) {
     case ScheduleActionTypes.FETCH_SCHEDULE:
-      return { ...state, events: action.payload }
+      return { ...state, events: action.payload };
     case ScheduleActionTypes.SET_LOADING:
-      return { ...state, isLoading: action.payload }
+      return { ...state, isLoading: action.payload };
     case ScheduleActionTypes.SET_ERROR:
-      return { ...state, isError: action.payload }
-    case ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE:
-      return { ...state, eventEditIsVisible: action.payload }
-    case ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE:
-      return { ...state, eventInfoIsVisible: action.payload }
+      return { ...state, isError: action.payload };
+    case ScheduleActionTypes.SET_TIMEZONE:
+      return { ...state, timeZone: action.payload };
+    case ScheduleActionTypes.SET_EVENTS:
+      return { ...state, events: action.payload };
     default:
-      return state
+      return state;
   }
-}
+};
