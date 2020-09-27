@@ -1,10 +1,4 @@
-import {
-  ScheduleActionTypes,
-  ISchedule,
-  Role,
-  Template,
-  IEvent,
-} from './types';
+import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
 import { initAction } from './actions';
 
 const initialState: ISchedule = {

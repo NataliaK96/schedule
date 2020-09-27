@@ -21,3 +21,11 @@
   height: 100%;
   background-color: rgba(127, 255, 212, 0.288);
 }
+
+.ant-modal {
+  top: 10px !important;
+}
+
+.ant-popover {
+  z-index: 1000 !important;
+}

@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 import { EventEdit } from '..';
 import { IEvent } from '../../redux/types';
 
-// type Props = {
-//   isVisible: boolean;
-//   onClose: Function;
-// };
 export const EventCreate = () => {
   const [isVisible, setVisible] = useState<boolean>(false);
   const onClose = () => {
@@ -33,7 +29,7 @@ export const EventCreate = () => {
   return (
     <>
       <EventEdit event={emptyEvent} onClose={onClose} isVisible={isVisible} />
-      <Affix style={{ position: 'fixed', right: 30, bottom: 30 }}>
+      <Affix>
         <Button
           type="primary"
           onClick={() => {

@@ -33,3 +33,10 @@
   display: flex;
   align-items: center;
 }
+
+.edit {
+  padding-top: 7px;
+  &:hover {
+    cursor: pointer;
+  }
+}
