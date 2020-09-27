@@ -1,9 +1,16 @@
-import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
+import {
+  ScheduleActionTypes,
+  ISchedule,
+  Role,
+  Template,
+  IEvent,
+} from './types';
 import { initAction } from './actions';
 
 const initialState: ISchedule = {
   isLoading: false,
   isError: false,
+  isPosting: false,
   role: Role.student,
   events: [],
   template: Template.table,
@@ -38,10 +45,20 @@ export const scheduleReducer = (
       return { ...state, isLoading: action.payload };
     case ScheduleActionTypes.SET_ERROR:
       return { ...state, isError: action.payload };
-    case ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE:
-      return { ...state, eventEditIsVisible: action.payload };
-    case ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE:
-      return { ...state, eventInfoIsVisible: action.payload };
+    case ScheduleActionTypes.SET_POSTING:
+      return { ...state, isPosting: action.payload };
+    // case ScheduleActionTypes.SET_EVENT: {
+    //   const events = state.events.concat();
+    //   const findEvent = events.findIndex(
+    //     (event: IEvent) => event.id === action.payload.id
+    //   );
+    //   if (findEvent !== -1) {
+    //     events[findEvent] = action.payload;
+    //   } else {
+    //     events.push(action.payload);
+    //   }
+    //   return { ...state, events: events };
+    // }
     default:
       return state;
   }

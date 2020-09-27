@@ -3,8 +3,9 @@ export enum ScheduleActionTypes {
   FETCH_SCHEDULE = '@@schedule/FETCH_SCHEDULE',
 
   FETCH_EVENT = '@@schedule/FETCH_EVENT',
-  POST_EVENT = '@@schedule/ADD_EVENT',
+  POST_EVENT = '@@schedule/POST_EVENT',
   DELETE_EVENT = '@@schedule/DELETE_EVENT',
+  PUT_EVENT = '@@schedule/PUT_EVENT',
 
   SET_MARK = '@@schedule/SET_MARK',
 
@@ -18,13 +19,15 @@ export enum ScheduleActionTypes {
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
 
-  SET_EVENT_INFO_IS_VISIBLE = '@@schedule/SET_EVENT_INFO_IS_VISIBLE',
-  SET_EVENT_EDIT_IS_VISIBLE = '@@schedule/SET_EVENT_EDIT_IS_VISIBLE',
+  SET_EVENT = '@@schedule/SET_EVENT',
+
+  SET_POSTING = '@@schedule/SET_POSTING',
 }
 
 export interface ISchedule {
   isLoading: boolean;
   isError: boolean;
+  isPosting: boolean;
   role: Role;
   template: Template;
   events: IEvent[];
@@ -61,4 +64,9 @@ export interface IOrganizer {
   name: string;
   githubId: string;
   id: string;
+}
+
+export interface IType {
+  name: string;
+  color: string;
 }

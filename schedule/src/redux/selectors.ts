@@ -38,3 +38,6 @@ export const selectEventInfoIsVisible = (store: ISchedule): boolean => {
 export const selectEventEditIsVisible = (store: ISchedule): boolean => {
   return store.eventEditIsVisible;
 };
+export const selectIsPosting = (store: ISchedule): boolean => {
+  return store.isPosting;
+};

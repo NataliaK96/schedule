@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Popover, Button, Tag, Image } from 'antd';
+import React from 'react';
+import { Popover, Button } from 'antd';
 import {
   AudioOutlined,
   CalendarOutlined,
@@ -8,12 +8,7 @@ import {
   EnvironmentOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectChooseEvent,
-  selectEventInfoIsVisible,
-} from '../../redux/selectors';
-import { setEventInfoIsVisible } from '../../redux/actions';
+//import { useDispatch } from 'react-redux';
 import style from './EventInfo.module.scss';
 import { TypeTag } from '..';
 import { IEvent } from '../../redux/types';
@@ -23,21 +18,21 @@ type Props = {
 };
 
 export const EventInfo: React.FC<Props> = (props) => {
-  const isVisible = useSelector(selectEventInfoIsVisible);
+  //const isVisible = useSelector(selectEventInfoIsVisible);
   const event = props.event;
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
-  const showModal = () => {
-    dispatch(setEventInfoIsVisible(true));
-  };
+  // const showModal = () => {
+  //   dispatch(setEventInfoIsVisible(true));
+  // };
 
-  const handleOk = () => {
-    dispatch(setEventInfoIsVisible(false));
-  };
+  // const handleOk = () => {
+  //   dispatch(setEventInfoIsVisible(false));
+  // };
 
-  const handleCancel = () => {
-    dispatch(setEventInfoIsVisible(false));
-  };
+  // const handleCancel = () => {
+  //   dispatch(setEventInfoIsVisible(false));
+  // };
   const time = new Date(event ? event.dateTime : '')
     .toTimeString()
     .substr(0, 5);

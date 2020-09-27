@@ -19,19 +19,19 @@ export const setError = (value: boolean) => {
   };
 };
 
-export const setEventInfoIsVisible = (value: boolean) => {
+export const setPosting = (value: boolean) => {
   return {
-    type: ScheduleActionTypes.SET_EVENT_INFO_IS_VISIBLE,
+    type: ScheduleActionTypes.SET_POSTING,
     payload: value,
   };
 };
 
-export const setEventEditIsVisible = (value: boolean) => {
-  return {
-    type: ScheduleActionTypes.SET_EVENT_EDIT_IS_VISIBLE,
-    payload: value,
-  };
-};
+// export const setEvent = (event: IEvent) => {
+//   return {
+//     type: ScheduleActionTypes.SET_EVENT,
+//     payload: event,
+//   };
+// };
 
 export const getScheduleAsync = () => async (dispatch: any) => {
   dispatch(setLoading(true));
@@ -48,7 +48,7 @@ export const getScheduleAsync = () => async (dispatch: any) => {
 };
 
 export const postEvent = (event: IEvent) => async (dispatch: any) => {
-  dispatch(setLoading(true));
+  dispatch(setPosting(true));
   try {
     await fetch(api.getUrlEvent(), {
       method: 'POST',
@@ -61,5 +61,22 @@ export const postEvent = (event: IEvent) => async (dispatch: any) => {
   } catch {
     dispatch(setError(true));
   }
-  dispatch(setLoading(false));
+  dispatch(setPosting(false));
+};
+
+export const putEvent = (event: IEvent) => async (dispatch: any) => {
+  dispatch(setPosting(true));
+  try {
+    await fetch(api.getUrlEvent(event.id), {
+      method: 'PUT',
+      body: JSON.stringify(event),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    dispatch(getScheduleAsync());
+  } catch {
+    dispatch(setError(true));
+  }
+  dispatch(setPosting(false));
 };
