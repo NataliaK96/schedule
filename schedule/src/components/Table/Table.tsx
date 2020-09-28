@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Table.css';
 import { Table as TebleAntd, Tag } from 'antd';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { selectEvents } from '../../redux/selectors';
 import { ISchedule, IEvent, IOrganizer } from '../../redux/types';
 import moment from 'moment';
+import { setCsv } from '../../redux/actions';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
-  console.log(events);
-
+  const dispath = useDispatch();
   const dataSource = events.map((eventsItem: IEvent) => {
     return {
       key: eventsItem.id,
@@ -87,13 +87,43 @@ const Table = (props: { events: IEvent[] }) => {
     },
   ];
 
+  useEffect(() => {
+    const header =
+      columns.reduce((acc, item) => {
+        if (item.title === '') return acc;
+        return acc + item.title + ',';
+      }, '') + '\n';
+    const rows = dataSource.reduce((acc, item) => {
+      const row =
+        [
+          item.date ? item.date : 'не указано',
+          item.time ? item.time : 'не указано',
+          item.type ? item.type : 'не указано',
+          `${item.name ? item.name : 'у события нет имени'}(${
+            item.eventsItem.descriptionUrl
+              ? item.eventsItem.descriptionUrl
+              : 'ссылка отсутствует'
+          })`,
+          `${item.organizer.name ? item.organizer.name : 'не указано'}(${
+            item.organizer.githubId ? item.organizer.githubId : 'не указано'
+          })`,
+          item.comment ? item.comment : 'не указано',
+        ]
+          .map((i) => `"${i}"`)
+          .join(',') + '\n';
+      return acc + row;
+    }, '');
+    const csv = header + rows;
+    dispath(setCsv(csv));
+  });
+
   const rowSelection = {
     getCheckboxProps: (record: { name: string }) => ({ name: record.name }),
   };
 
   return (
     <TebleAntd
-      style={{ marginTop: 20 }}
+      style={{ marginTop: 20, overflowY: 'auto' }}
       rowSelection={{ ...rowSelection }}
       dataSource={dataSource}
       columns={columns}
