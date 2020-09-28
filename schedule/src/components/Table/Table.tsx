@@ -7,6 +7,7 @@ import { ISchedule, IEvent, IOrganizer, Role } from '../../redux/types';
 import moment from 'moment';
 import { setCsv } from '../../redux/actions';
 import { EventEdit } from '../EventEdit/EventEdit';
+import { Checkbox } from 'antd';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
@@ -28,6 +29,24 @@ const Table = (props: { events: IEvent[] }) => {
     };
   });
 
+  const [showDate, changeShowDate] = useState<boolean>(true);
+  const [showTime, changeShowTime] = useState<boolean>(true);
+  const [showType, changeShowType] = useState<boolean>(true);
+  const [showName, changeShowName] = useState<boolean>(true);
+  const [showOrganizer, changeShowOrganizer] = useState<boolean>(true);
+  const [showComment, changeShowComment] = useState<boolean>(true);
+  
+  function onChange(checkedValues: any) {
+    switch(checkedValues.target.value) {
+      case 'date': changeShowDate(!showDate); break;
+      case 'time': changeShowTime(!showTime); break;
+      case 'type': changeShowType(!showType); break;
+      case 'name': changeShowName(!showName); break;
+      case 'organizer': changeShowOrganizer(!showOrganizer); break;
+      case 'comment': changeShowComment(!showComment); break;
+    }
+  }
+
   const typesArray = events.map((event: IEvent) => event.type);
   const filterTypesArray = typesArray.filter(
     (item: string, index: number) => typesArray.indexOf(item) === index
@@ -40,82 +59,91 @@ const Table = (props: { events: IEvent[] }) => {
     };
   });
 
+
+  const dateColumn = showDate ? {
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+  } : {};
+
+  const timeColumn = showTime ? {
+    title: 'Time',
+    dataIndex: 'time',
+    key: 'time',
+  } : {};
+
+  const typeColumn = showType ? {
+    title: 'Type',
+    dataIndex: 'type',
+    key: 'type',
+    filters: filtersArr,
+    onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+    render: (type: string) => <Tag>{type}</Tag>,
+  } : {};
+
+  const nameColumn = showName ? {
+    title: 'Name',
+    dataIndex: 'eventsItem',
+    key: 'name',
+    render: (eventsItem: IEvent) => (
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={eventsItem.descriptionUrl}
+        >
+          {eventsItem.name}
+        </a>
+      </div>
+    ),
+  } : {};
+
+  const organizerColumn = showOrganizer ? {
+    title: 'Organizer',
+    dataIndex: 'organizer',
+    key: 'organizer',
+    render: (organizer: IOrganizer) => (
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://github.com/${organizer.githubId}`}
+        >
+          {organizer.name}
+        </a>
+      </div>
+    ),
+  } : {};
+
+  const commentColumn = showComment ? {
+    title: 'Comment',
+    dataIndex: 'comment',
+    key: 'comment',
+  } : {};
+
   const columns = [
-    {
-      title: '',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Time',
-      dataIndex: 'time',
-      key: 'time',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      filters: filtersArr,
-      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
-      render: (type: string) => <Tag>{type}</Tag>,
-    },
-    {
-      title: 'Name',
-      dataIndex: 'eventsItem',
-      key: 'name',
-      render: (eventsItem: IEvent) => (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={eventsItem.descriptionUrl}
-          >
-            {eventsItem.name}
-          </a>
-        </div>
-      ),
-    },
-    {
-      title: 'Organizer',
-      dataIndex: 'organizer',
-      key: 'organizer',
-      render: (organizer: IOrganizer) => (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://github.com/${organizer.githubId}`}
-          >
-            {organizer.name}
-          </a>
-        </div>
-      ),
-    },
-    {
-      title: 'Comment',
-      dataIndex: 'comment',
-      key: 'comment',
-    },
+    dateColumn,
+    timeColumn,
+    typeColumn,
+    nameColumn,
+    organizerColumn,
+    commentColumn,
   ];
 
   useEffect(() => {
     const header =
       columns.reduce((acc, item) => {
-        if (item.title === '') return acc;
+          if (item.title === '') return acc;
         return acc + item.title + ',';
+        
       }, '') + '\n';
     const rows = dataSource.reduce((acc, item) => {
       const row =
@@ -163,6 +191,15 @@ const Table = (props: { events: IEvent[] }) => {
           };
         }}
       />
+      <div className="column-visability-setting">
+        <h4>Column visability setting:</h4>
+        <Checkbox checked={showDate} onChange={onChange} value='date'> Date </Checkbox>
+        <Checkbox checked={showTime} onChange={onChange} value='time'> Time </Checkbox>
+        <Checkbox checked={showType} onChange={onChange} value='type'> Type </Checkbox>
+        <Checkbox checked={showName} onChange={onChange} value='name'> Name </Checkbox>
+        <Checkbox checked={showOrganizer} onChange={onChange} value='organizer'> Organizer </Checkbox>
+        <Checkbox checked={showComment} onChange={onChange} value='comment'> Comment </Checkbox>
+      </div>  
       {editModalIsVisible && chooseEvent && (
         <EventEdit
           useDelete={true}
