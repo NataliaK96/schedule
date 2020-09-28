@@ -8,6 +8,7 @@ import moment from 'moment';
 import { setCsv } from '../../redux/actions';
 import { EventEdit } from '../EventEdit/EventEdit';
 import { Checkbox } from 'antd';
+import { Popover, Button } from 'antd';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
@@ -173,8 +174,22 @@ const Table = (props: { events: IEvent[] }) => {
     getCheckboxProps: (record: { name: string }) => ({ name: record.name }),
   };
 
+  const content = (
+    <div className="column-visability-setting">
+        <Checkbox checked={showDate} onChange={onChange} value='date'> Date </Checkbox>
+        <Checkbox checked={showTime} onChange={onChange} value='time'> Time </Checkbox>
+        <Checkbox checked={showType} onChange={onChange} value='type'> Type </Checkbox>
+        <Checkbox checked={showName} onChange={onChange} value='name'> Name </Checkbox>
+        <Checkbox checked={showOrganizer} onChange={onChange} value='organizer'> Organizer </Checkbox>
+        <Checkbox checked={showComment} onChange={onChange} value='comment'> Comment </Checkbox>
+      </div>  
+  );
+
   return (
     <>
+      <Popover content={content} title="Сolumn visability setting" trigger="click">
+        <Button className='column-visability-setting'>Column visability setting</Button>
+      </Popover>
       <TebleAntd
         style={{ marginTop: 20, overflowY: 'auto' }}
         rowSelection={{ ...rowSelection }}
@@ -191,15 +206,8 @@ const Table = (props: { events: IEvent[] }) => {
           };
         }}
       />
-      <div className="column-visability-setting">
-        <h4>Column visability setting:</h4>
-        <Checkbox checked={showDate} onChange={onChange} value='date'> Date </Checkbox>
-        <Checkbox checked={showTime} onChange={onChange} value='time'> Time </Checkbox>
-        <Checkbox checked={showType} onChange={onChange} value='type'> Type </Checkbox>
-        <Checkbox checked={showName} onChange={onChange} value='name'> Name </Checkbox>
-        <Checkbox checked={showOrganizer} onChange={onChange} value='organizer'> Organizer </Checkbox>
-        <Checkbox checked={showComment} onChange={onChange} value='comment'> Comment </Checkbox>
-      </div>  
+      
+     
       {editModalIsVisible && chooseEvent && (
         <EventEdit
           useDelete={true}
