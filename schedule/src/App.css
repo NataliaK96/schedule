@@ -22,8 +22,8 @@
   background-color: rgba(127, 255, 212, 0.288);
 }
 
-.ant-modal {
-  top: 10px !important;
+.edit-modal.ant-modal {
+  top: 10px;
 }
 
 .ant-popover {

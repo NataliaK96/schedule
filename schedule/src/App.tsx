@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { getScheduleAsync } from './redux/actions';
 import 'antd/dist/antd.css';
 import { Spin } from 'antd';
-import {
-  selectEvents,
-  selectIsLoading,
-  selectTemplate,
-} from './redux/selectors';
+import { selectIsLoading, selectTemplate } from './redux/selectors';
 import { Main } from './components/Main/Main';
 import { Header } from './components/Header/Header';
 import 'antd/dist/antd.css';
 import Calendar from './components/Calendar/Calendar';
-import { Role, Template } from './redux/types';
+import { Template } from './redux/types';
 import Table from './components/Table/Table';
 
 function App() {

@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent, ITimeZone, Role } from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -105,4 +105,15 @@ export const putEvent = (event: IEvent) => async (dispatch: any) => {
     dispatch(setError(true));
   }
   dispatch(setPosting(false));
+};
+
+export const deleteEvent = (event: IEvent) => async (dispatch: any) => {
+  try {
+    await fetch(api.getUrlEvent(event.id), {
+      method: 'DELETE',
+    });
+    dispatch(getScheduleAsync());
+  } catch {
+    dispatch(setError(true));
+  }
 };

@@ -43,8 +43,6 @@ export interface ISchedule {
   role: Role;
   template: Template;
   events: IEvent[];
-  eventInfoIsVisible: boolean;
-  eventEditIsVisible: boolean;
   csv: string;
 }
 

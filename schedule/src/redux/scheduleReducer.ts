@@ -10,8 +10,6 @@ const initialState: ISchedule = {
   template: Template.table,
   timeZone: { name: 'Default', offset: -240 },
   csv: '',
-  eventEditIsVisible: false,
-  eventInfoIsVisible: false,
 };
 export const scheduleReducer = (
   state = initialState,

@@ -93,6 +93,7 @@ export const EventInfo: React.FC<Props> = (props) => {
       </Popover>
       {editModalIsVisible && (
         <EventEdit
+          useDelete={true}
           event={event}
           isVisible={editModalIsVisible}
           onClose={() => {
