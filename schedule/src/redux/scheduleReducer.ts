@@ -9,25 +9,6 @@ const initialState: ISchedule = {
   events: [],
   template: Template.table,
   timeZone: { name: 'Default', offset: -240 },
-  chooseEvent: {
-    id: 'sfnnfeslf',
-    name: 'Встреча у бабушки',
-    description: 'Мы встречаемся у бабушки',
-    descriptionUrl: 'хттп://бабушка.рф',
-    type: 'deadline',
-    timeZone: '-240',
-    dateTime: '2020-09-14T23:59',
-    place: 'Домик в деревне',
-    comment: 'Не забудьте, что кушать перед поезкой нельзя',
-    organizer: {
-      id: 'fnisfl',
-      githubId: 'Nataliak96',
-      name: 'зергей',
-    },
-    mark: false,
-  },
-  eventEditIsVisible: false,
-  eventInfoIsVisible: false,
 };
 export const scheduleReducer = (
   state = initialState,
@@ -42,8 +23,6 @@ export const scheduleReducer = (
       return { ...state, isError: action.payload };
     case ScheduleActionTypes.SET_POSTING:
       return { ...state, isPosting: action.payload };
-    // case ScheduleActionTypes.SET_ROLE:
-    //   return { ...state, role: action.payload };
     case ScheduleActionTypes.CHANGE_ROLE: {
       if (state.role === Role.student) {
         return { ...state, role: Role.mentor };
@@ -58,10 +37,6 @@ export const scheduleReducer = (
         return { ...state, template: Template.calendar };
       }
     }
-    // case ScheduleActionTypes.CHOOSE_TABLE:
-    //   return { ...state, template: action.payload };
-    // case ScheduleActionTypes.CHOOSE_CALENDARE:
-    //   return { ...state, template: action.payload };
     case ScheduleActionTypes.SET_TIMEZONE:
       return { ...state, timeZone: action.payload };
     case ScheduleActionTypes.SET_EVENTS:

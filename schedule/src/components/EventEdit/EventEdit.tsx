@@ -12,21 +12,21 @@ import moment from 'moment';
 import { IEvent, IType } from '../../redux/types';
 import style from './EventEdit.module.scss';
 import { TypeTag } from '..';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { types } from '../TypeTag/TypeTag';
 import TextArea from 'antd/lib/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
-import { postEvent, putEvent } from '../../redux/actions';
-import { selectEvents, selectIsPosting } from '../../redux/selectors';
+import { deleteEvent, postEvent, putEvent } from '../../redux/actions';
+import { selectEvents } from '../../redux/selectors';
 
 type Props = {
   event: IEvent;
   isVisible: boolean;
   onClose: Function;
+  useDelete: boolean;
 };
 export const EventEdit = (props: Props) => {
   const [editEvent, setEditEvent] = useState<IEvent>(props.event);
-  const isPosting = useSelector(selectIsPosting);
   const events = useSelector(selectEvents);
   const dispatch = useDispatch();
   const handleOk = () => {
@@ -36,10 +36,21 @@ export const EventEdit = (props: Props) => {
     } else {
       dispatch(postEvent(editEvent));
     }
-    //props.onClose();
+    props.onClose();
   };
   const handleCancel = () => {
     props.onClose();
+  };
+  const { confirm } = Modal;
+  const handleDelete = () => {
+    confirm({
+      icon: <ExclamationCircleOutlined />,
+      content: <div>Событие будет удалено! Вы уверены?</div>,
+      onOk() {
+        dispatch(deleteEvent(props.event));
+        props.onClose();
+      },
+    });
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
@@ -176,13 +187,24 @@ export const EventEdit = (props: Props) => {
       </div>
     </>
   );
+  const footerWithDelete = (
+    <div className={style.footer}>
+      <Button danger type="primary" onClick={handleDelete}>
+        Delete
+      </Button>
+      <Button type="primary" onClick={handleOk}>
+        OK
+      </Button>
+    </div>
+  );
   return (
     <Modal
+      className="edit-modal"
       title={title}
       visible={props.isVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      confirmLoading={isPosting}
+      footer={props.useDelete ? footerWithDelete : undefined}
     >
       <div>{content}</div>
     </Modal>

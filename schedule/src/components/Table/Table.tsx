@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Table.css';
 import { Table as TebleAntd, Tag } from 'antd';
-import { connect } from 'react-redux';
-import { selectEvents } from '../../redux/selectors';
-import { ISchedule, IEvent, IOrganizer } from '../../redux/types';
+import { connect, useSelector } from 'react-redux';
+import { selectEvents, selectRole } from '../../redux/selectors';
+import { ISchedule, IEvent, IOrganizer, Role } from '../../redux/types';
 import moment from 'moment';
+import { EventEdit } from '../EventEdit/EventEdit';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
-  console.log(events);
+  const [editModalIsVisible, shwoEditModal] = useState<boolean>(false);
+  const [chooseEvent, setChooseEvent] = useState<IEvent | undefined>(undefined);
+  const role = useSelector(selectRole);
 
   const dataSource = events.map((eventsItem: IEvent) => {
     return {
@@ -65,9 +68,19 @@ const Table = (props: { events: IEvent[] }) => {
       dataIndex: 'eventsItem',
       key: 'name',
       render: (eventsItem: IEvent) => (
-        <a target="_blank" href={eventsItem.descriptionUrl}>
-          {eventsItem.name}
-        </a>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={eventsItem.descriptionUrl}
+          >
+            {eventsItem.name}
+          </a>
+        </div>
       ),
     },
     {
@@ -75,9 +88,19 @@ const Table = (props: { events: IEvent[] }) => {
       dataIndex: 'organizer',
       key: 'organizer',
       render: (organizer: IOrganizer) => (
-        <a target="_blank" href={`https://github.com/${organizer.githubId}`}>
-          {organizer.name}
-        </a>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://github.com/${organizer.githubId}`}
+          >
+            {organizer.name}
+          </a>
+        </div>
       ),
     },
     {
@@ -92,12 +115,34 @@ const Table = (props: { events: IEvent[] }) => {
   };
 
   return (
-    <TebleAntd
-      style={{ marginTop: 20 }}
-      rowSelection={{ ...rowSelection }}
-      dataSource={dataSource}
-      columns={columns}
-    />
+    <>
+      <TebleAntd
+        style={{ marginTop: 20 }}
+        rowSelection={{ ...rowSelection }}
+        dataSource={dataSource}
+        columns={columns}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: (event) => {
+              if (role === Role.student) return;
+              setChooseEvent(record.eventsItem);
+              shwoEditModal(true);
+              console.log(record, rowIndex, event);
+            },
+          };
+        }}
+      />
+      {editModalIsVisible && chooseEvent && (
+        <EventEdit
+          useDelete={true}
+          event={chooseEvent}
+          isVisible={editModalIsVisible}
+          onClose={() => {
+            shwoEditModal(false);
+          }}
+        />
+      )}
+    </>
   );
 };
 

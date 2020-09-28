@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent, ITimeZone, Role } from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -26,13 +26,6 @@ export const setPosting = (value: boolean) => {
   };
 };
 
-// export const setRole = (role: Role) => {
-//   return {
-//     type: ScheduleActionTypes.SET_ROLE,
-//     payload: role,
-//   };
-// };
-
 export const changeRole = () => {
   return {
     type: ScheduleActionTypes.CHANGE_ROLE,
@@ -44,20 +37,6 @@ export const changeTemplate = () => {
     type: ScheduleActionTypes.CHANGE_TEMPLATE,
   };
 };
-
-// export const chooseTable = (value: string) => {
-//   return {
-//     type: ScheduleActionTypes.CHOOSE_TABLE,
-//     payload: value,
-//   };
-// };
-
-// export const chooseCalendar = (value: string) => {
-//   return {
-//     type: ScheduleActionTypes.CHOOSE_CALENDARE,
-//     payload: value,
-//   };
-// };
 
 export const setEvents = (events: IEvent[]) => {
   return {
@@ -119,4 +98,15 @@ export const putEvent = (event: IEvent) => async (dispatch: any) => {
     dispatch(setError(true));
   }
   dispatch(setPosting(false));
+};
+
+export const deleteEvent = (event: IEvent) => async (dispatch: any) => {
+  try {
+    await fetch(api.getUrlEvent(event.id), {
+      method: 'DELETE',
+    });
+    dispatch(getScheduleAsync());
+  } catch {
+    dispatch(setError(true));
+  }
 };

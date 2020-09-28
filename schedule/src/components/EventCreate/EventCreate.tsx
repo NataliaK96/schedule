@@ -28,7 +28,12 @@ export const EventCreate = () => {
   };
   return (
     <>
-      <EventEdit event={emptyEvent} onClose={onClose} isVisible={isVisible} />
+      <EventEdit
+        useDelete={false}
+        event={emptyEvent}
+        onClose={onClose}
+        isVisible={isVisible}
+      />
       <Affix>
         <Button
           type="primary"
