@@ -9,6 +9,7 @@ const initialState: ISchedule = {
   events: [],
   template: Template.table,
   timeZone: { name: 'Default', offset: -240 },
+  csv: '',
 };
 export const scheduleReducer = (
   state = initialState,
@@ -41,6 +42,8 @@ export const scheduleReducer = (
       return { ...state, timeZone: action.payload };
     case ScheduleActionTypes.SET_EVENTS:
       return { ...state, events: action.payload };
+    case ScheduleActionTypes.SET_CSV:
+      return { ...state, csv: action.payload };
     default:
       return state;
   }

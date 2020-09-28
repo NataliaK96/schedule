@@ -52,6 +52,13 @@ export const setTimeZone = (value: ITimeZone) => {
   };
 };
 
+export const setCsv = (s: string) => {
+  return {
+    type: ScheduleActionTypes.SET_CSV,
+    payload: s,
+  };
+};
+
 export const getScheduleAsync = () => async (dispatch: any) => {
   dispatch(setLoading(true));
   let schedule;

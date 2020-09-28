@@ -33,3 +33,6 @@ export const selectTimeZone = (store: ISchedule): ITimeZone => store.timeZone;
 export const selectIsPosting = (store: ISchedule): boolean => {
   return store.isPosting;
 };
+export const selectCsv = (store: ISchedule): string => {
+  return store.csv;
+};

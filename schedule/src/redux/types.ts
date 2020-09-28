@@ -23,6 +23,8 @@ export enum ScheduleActionTypes {
 
   SET_POSTING = '@@schedule/SET_POSTING',
   SET_EVENTS = '@@schedule/SET_EVENTS',
+
+  SET_CSV = '@@schedule/SET_CSV',
 }
 
 export interface ISchedule {
@@ -41,6 +43,7 @@ export interface ISchedule {
   role: Role;
   template: Template;
   events: IEvent[];
+  csv: string;
 }
 
 export enum Template {
