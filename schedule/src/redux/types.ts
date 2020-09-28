@@ -34,6 +34,7 @@ export interface ISchedule {
   template: Template;
   events: IEvent[];
   timeZone: ITimeZone;
+  tagTypes: IType[];
 }
 
 export interface ISchedule {

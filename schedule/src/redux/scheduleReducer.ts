@@ -1,5 +1,6 @@
 import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
 import { initAction } from './actions';
+import { tagTypes } from '../utils/tagTypes';
 
 const initialState: ISchedule = {
   isLoading: false,
@@ -10,6 +11,7 @@ const initialState: ISchedule = {
   template: Template.table,
   timeZone: { name: 'Default', offset: -240 },
   csv: '',
+  tagTypes: tagTypes,
 };
 export const scheduleReducer = (
   state = initialState,

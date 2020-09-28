@@ -7,6 +7,7 @@ import { ISchedule, IEvent, IOrganizer, Role } from '../../redux/types';
 import moment from 'moment';
 import { setCsv } from '../../redux/actions';
 import { EventEdit } from '../EventEdit/EventEdit';
+import { TypeTag } from '..';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
@@ -62,7 +63,7 @@ const Table = (props: { events: IEvent[] }) => {
       key: 'type',
       filters: filtersArr,
       onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
-      render: (type: string) => <Tag>{type}</Tag>,
+      render: (type: string) => <TypeTag type={type}></TypeTag>,
     },
     {
       title: 'Name',
