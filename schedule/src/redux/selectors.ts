@@ -30,9 +30,6 @@ export const selectEventType = (
   return findEvent?.type;
 };
 export const selectTimeZone = (store: ISchedule): ITimeZone => store.timeZone;
-export const selectChooseEvent = (store: ISchedule): IEvent | null => {
-  return store.chooseEvent;
-};
 export const selectEventInfoIsVisible = (store: ISchedule): boolean => {
   return store.eventInfoIsVisible;
 };
@@ -41,4 +38,7 @@ export const selectEventEditIsVisible = (store: ISchedule): boolean => {
 };
 export const selectIsPosting = (store: ISchedule): boolean => {
   return store.isPosting;
+};
+export const selectCsv = (store: ISchedule): string => {
+  return store.csv;
 };

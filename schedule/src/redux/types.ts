@@ -10,13 +10,10 @@ export enum ScheduleActionTypes {
   SET_MARK = '@@schedule/SET_MARK',
 
   CHANGE_ROLE = '@@schedule/CHANGE_ROLE',
-  // SET_ROLE = '@@schedule/SET_ROLE',
   GET_ROLE = '@@schedule/GET_ROLE',
 
   SET_TIMEZONE = '@@schedule/SET_TIMEZONE',
 
-  // CHOOSE_CALENDARE = '@@schedule/CHOOSE_CALENDARE',
-  // CHOOSE_TABLE = '@@schedule/CHOOSE_TABLE',
   CHANGE_TEMPLATE = '@@schedule/CHANGE_TEMPLATE',
 
   SET_LOADING = '@@schedule/SET_LOADING',
@@ -26,6 +23,8 @@ export enum ScheduleActionTypes {
 
   SET_POSTING = '@@schedule/SET_POSTING',
   SET_EVENTS = '@@schedule/SET_EVENTS',
+
+  SET_CSV = '@@schedule/SET_CSV',
 }
 
 export interface ISchedule {
@@ -44,9 +43,9 @@ export interface ISchedule {
   role: Role;
   template: Template;
   events: IEvent[];
-  chooseEvent: IEvent | null;
   eventInfoIsVisible: boolean;
   eventEditIsVisible: boolean;
+  csv: string;
 }
 
 export enum Template {
