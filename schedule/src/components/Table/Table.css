@@ -4,3 +4,7 @@
 .ant-table tfoot > tr > td {
   padding: 8px;
 }
+
+.column-visability-setting{
+  margin-top: 10px;
+}

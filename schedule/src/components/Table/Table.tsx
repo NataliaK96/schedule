@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Table.css';
-import { Table as TebleAntd, Tag } from 'antd';
+import { Table as TebleAntd } from 'antd';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectEvents, selectRole } from '../../redux/selectors';
 import { ISchedule, IEvent, IOrganizer, Role } from '../../redux/types';
@@ -8,6 +8,8 @@ import moment from 'moment';
 import { setCsv } from '../../redux/actions';
 import { EventEdit } from '../EventEdit/EventEdit';
 import { TypeTag } from '..';
+import { Checkbox } from 'antd';
+import { Popover, Button } from 'antd';
 
 const Table = (props: { events: IEvent[] }) => {
   const { events } = props;
@@ -29,6 +31,36 @@ const Table = (props: { events: IEvent[] }) => {
     };
   });
 
+  const [showDate, changeShowDate] = useState<boolean>(true);
+  const [showTime, changeShowTime] = useState<boolean>(true);
+  const [showType, changeShowType] = useState<boolean>(true);
+  const [showName, changeShowName] = useState<boolean>(true);
+  const [showOrganizer, changeShowOrganizer] = useState<boolean>(true);
+  const [showComment, changeShowComment] = useState<boolean>(true);
+
+  function onChange(checkedValues: any) {
+    switch (checkedValues.target.value) {
+      case 'date':
+        changeShowDate(!showDate);
+        break;
+      case 'time':
+        changeShowTime(!showTime);
+        break;
+      case 'type':
+        changeShowType(!showType);
+        break;
+      case 'name':
+        changeShowName(!showName);
+        break;
+      case 'organizer':
+        changeShowOrganizer(!showOrganizer);
+        break;
+      case 'comment':
+        changeShowComment(!showComment);
+        break;
+    }
+  }
+
   const typesArray = events.map((event: IEvent) => event.type);
   const filterTypesArray = typesArray.filter(
     (item: string, index: number) => typesArray.indexOf(item) === index
@@ -41,63 +73,82 @@ const Table = (props: { events: IEvent[] }) => {
     };
   });
 
+  const dateColumn = showDate
+    ? {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date',
+      }
+    : {};
+
+  const timeColumn = showTime
+    ? {
+        title: 'Time',
+        dataIndex: 'time',
+        key: 'time',
+      }
+    : {};
+
+  const typeColumn = showType
+    ? {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        filters: filtersArr,
+        onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+        render: (type: string) => <TypeTag type={type}></TypeTag>,
+      }
+    : {};
+
+  const nameColumn = showName
+    ? {
+        title: 'Name',
+        dataIndex: 'eventsItem',
+        key: 'name',
+        render: (eventsItem: IEvent) => (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={eventsItem.descriptionUrl}
+          >
+            {eventsItem.name}
+          </a>
+        ),
+      }
+    : {};
+
+  const organizerColumn = showOrganizer
+    ? {
+        title: 'Organizer',
+        dataIndex: 'organizer',
+        key: 'organizer',
+        render: (organizer: IOrganizer) => (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://github.com/${organizer.githubId}`}
+          >
+            {organizer.name}
+          </a>
+        ),
+      }
+    : {};
+
+  const commentColumn = showComment
+    ? {
+        title: 'Comment',
+        dataIndex: 'comment',
+        key: 'comment',
+      }
+    : {};
+
   const columns = [
-    {
-      title: '',
-      dataIndex: 'status',
-      key: 'status',
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Time',
-      dataIndex: 'time',
-      key: 'time',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-      filters: filtersArr,
-      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
-      render: (type: string) => <TypeTag type={type}></TypeTag>,
-    },
-    {
-      title: 'Name',
-      dataIndex: 'eventsItem',
-      key: 'name',
-      render: (eventsItem: IEvent) => (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={eventsItem.descriptionUrl}
-        >
-          {eventsItem.name}
-        </a>
-      ),
-    },
-    {
-      title: 'Organizer',
-      dataIndex: 'organizer',
-      key: 'organizer',
-      render: (organizer: IOrganizer) => (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`https://github.com/${organizer.githubId}`}
-        >
-          {organizer.name}
-        </a>
-      ),
-    },
-    {
-      title: 'Comment',
-      dataIndex: 'comment',
-      key: 'comment',
-    },
+    dateColumn,
+    timeColumn,
+    typeColumn,
+    nameColumn,
+    organizerColumn,
+    commentColumn,
   ];
 
   useEffect(() => {
@@ -134,8 +185,46 @@ const Table = (props: { events: IEvent[] }) => {
     getCheckboxProps: (record: { name: string }) => ({ name: record.name }),
   };
 
+  const content = (
+    <div className="column-visability-setting">
+      <Checkbox checked={showDate} onChange={onChange} value="date">
+        {' '}
+        Date{' '}
+      </Checkbox>
+      <Checkbox checked={showTime} onChange={onChange} value="time">
+        {' '}
+        Time{' '}
+      </Checkbox>
+      <Checkbox checked={showType} onChange={onChange} value="type">
+        {' '}
+        Type{' '}
+      </Checkbox>
+      <Checkbox checked={showName} onChange={onChange} value="name">
+        {' '}
+        Name{' '}
+      </Checkbox>
+      <Checkbox checked={showOrganizer} onChange={onChange} value="organizer">
+        {' '}
+        Organizer{' '}
+      </Checkbox>
+      <Checkbox checked={showComment} onChange={onChange} value="comment">
+        {' '}
+        Comment{' '}
+      </Checkbox>
+    </div>
+  );
+
   return (
     <>
+      <Popover
+        content={content}
+        title="Сolumn visability setting"
+        trigger="click"
+      >
+        <Button className="column-visability-setting">
+          Column visability setting
+        </Button>
+      </Popover>
       <TebleAntd
         style={{ marginTop: 20, overflowY: 'auto' }}
         rowSelection={{ ...rowSelection }}
@@ -152,6 +241,7 @@ const Table = (props: { events: IEvent[] }) => {
           };
         }}
       />
+
       {editModalIsVisible && chooseEvent && (
         <EventEdit
           useDelete={true}
