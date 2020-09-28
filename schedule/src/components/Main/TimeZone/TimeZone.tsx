@@ -6,6 +6,7 @@ import { setEvents, setTimeZone } from '../../../redux/actions';
 import { selectEvents, selectTimeZone } from '../../../redux/selectors';
 import { ITimeZone } from '../../../redux/types';
 import { timeZoneReduction } from '../../../utils/timeZoneReduction';
+import style from './TimeZone.module.scss';
 
 const timeZones: ITimeZone[] = [
   { name: 'Europe/Minsk', offset: -180 },
@@ -57,7 +58,7 @@ export const TimeZone = () => {
 
   return (
     <Dropdown overlay={menu}>
-      <Button style={{ width: 200 }}>
+      <Button className={style.button}>
         {timeZone.name} <DownOutlined />
       </Button>
     </Dropdown>

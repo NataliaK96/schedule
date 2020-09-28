@@ -17,7 +17,6 @@ export const Main: React.FC = (props) => {
           <TimeZone />
           <TypeSwitch />
         </div>
-        {/* <h2 className={style['name-task']}>Shedule</h2> */}
         <div style={{ display: 'flex' }}>
           {role === Role.mentor && <EventCreate />}
           <div style={{ marginLeft: 10 }}>
