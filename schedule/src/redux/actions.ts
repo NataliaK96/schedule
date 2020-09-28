@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent, ITimeZone } from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone, IType } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -56,6 +56,13 @@ export const setCsv = (s: string) => {
   return {
     type: ScheduleActionTypes.SET_CSV,
     payload: s,
+  };
+};
+
+export const setTagTypes = (types: IType[]) => {
+  return {
+    type: ScheduleActionTypes.SET_TAG_TYPES,
+    payload: types,
   };
 };
 

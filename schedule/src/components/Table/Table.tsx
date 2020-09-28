@@ -70,19 +70,13 @@ const Table = (props: { events: IEvent[] }) => {
       dataIndex: 'eventsItem',
       key: 'name',
       render: (eventsItem: IEvent) => (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={eventsItem.descriptionUrl}
         >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={eventsItem.descriptionUrl}
-          >
-            {eventsItem.name}
-          </a>
-        </div>
+          {eventsItem.name}
+        </a>
       ),
     },
     {
@@ -90,19 +84,13 @@ const Table = (props: { events: IEvent[] }) => {
       dataIndex: 'organizer',
       key: 'organizer',
       render: (organizer: IOrganizer) => (
-        <div
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://github.com/${organizer.githubId}`}
         >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://github.com/${organizer.githubId}`}
-          >
-            {organizer.name}
-          </a>
-        </div>
+          {organizer.name}
+        </a>
       ),
     },
     {
@@ -155,7 +143,7 @@ const Table = (props: { events: IEvent[] }) => {
         columns={columns}
         onRow={(record, rowIndex) => {
           return {
-            onClick: (event) => {
+            onDoubleClick: (event) => {
               if (role === Role.student) return;
               setChooseEvent(record.eventsItem);
               shwoEditModal(true);

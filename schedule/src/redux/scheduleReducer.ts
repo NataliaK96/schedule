@@ -46,6 +46,8 @@ export const scheduleReducer = (
       return { ...state, events: action.payload };
     case ScheduleActionTypes.SET_CSV:
       return { ...state, csv: action.payload };
+    case ScheduleActionTypes.SET_TAG_TYPES:
+      return { ...state, tagTypes: action.payload.concat() };
     default:
       return state;
   }
