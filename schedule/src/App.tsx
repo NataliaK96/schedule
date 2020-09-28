@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { getScheduleAsync } from './redux/actions';
+import { getScheduleAsync, setTagTypes } from './redux/actions';
 import 'antd/dist/antd.css';
 import { Spin } from 'antd';
 import { selectIsLoading, selectTemplate } from './redux/selectors';
@@ -18,6 +18,11 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getScheduleAsync());
+    let tags: any = localStorage.getItem('tags');
+    if (!!tags) {
+      tags = JSON.parse(tags);
+      dispatch(setTagTypes(tags));
+    }
   }, [dispatch]);
   return (
     <div className="App">

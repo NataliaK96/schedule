@@ -36,3 +36,6 @@ export const selectIsPosting = (store: ISchedule): boolean => {
 export const selectCsv = (store: ISchedule): string => {
   return store.csv;
 };
+export const selectTagTypes = (store: ISchedule) => {
+  return store.tagTypes;
+};

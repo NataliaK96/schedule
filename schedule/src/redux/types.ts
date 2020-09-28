@@ -25,6 +25,8 @@ export enum ScheduleActionTypes {
   SET_EVENTS = '@@schedule/SET_EVENTS',
 
   SET_CSV = '@@schedule/SET_CSV',
+
+  SET_TAG_TYPES = '@@schedule/SET_TAG_TYPES',
 }
 
 export interface ISchedule {
@@ -34,6 +36,7 @@ export interface ISchedule {
   template: Template;
   events: IEvent[];
   timeZone: ITimeZone;
+  tagTypes: IType[];
 }
 
 export interface ISchedule {

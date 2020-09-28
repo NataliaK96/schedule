@@ -13,11 +13,10 @@ import { IEvent, IType } from '../../redux/types';
 import style from './EventEdit.module.scss';
 import { TypeTag } from '..';
 import { DownOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { types } from '../TypeTag/TypeTag';
 import TextArea from 'antd/lib/input/TextArea';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteEvent, postEvent, putEvent } from '../../redux/actions';
-import { selectEvents } from '../../redux/selectors';
+import { selectEvents, selectTagTypes } from '../../redux/selectors';
 
 type Props = {
   event: IEvent;
@@ -26,6 +25,7 @@ type Props = {
   useDelete: boolean;
 };
 export const EventEdit = (props: Props) => {
+  const types = useSelector(selectTagTypes);
   const [editEvent, setEditEvent] = useState<IEvent>(props.event);
   const events = useSelector(selectEvents);
   const dispatch = useDispatch();

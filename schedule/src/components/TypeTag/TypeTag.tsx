@@ -1,46 +1,14 @@
 import { Tag } from 'antd';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectTagTypes } from '../../redux/selectors';
 import { IType } from '../../redux/types';
-
-export const types: IType[] = [
-  {
-    name: 'self education',
-    color: 'gold',
-  },
-  {
-    name: 'deadline',
-    color: 'red',
-  },
-  {
-    name: 'task review',
-    color: 'orange',
-  },
-  {
-    name: 'task start',
-    color: 'green',
-  },
-  {
-    name: 'online lecture',
-    color: 'blue',
-  },
-  {
-    name: 'elective',
-    color: 'purple',
-  },
-  {
-    name: 'cross check start',
-    color: 'lime',
-  },
-  {
-    name: 'test',
-    color: 'magenta',
-  },
-];
 
 type Props = {
   type: string;
 };
 export const TypeTag = (props: Props) => {
+  const types = useSelector(selectTagTypes);
   const defType: IType = {
     name: props.type,
     color: '',

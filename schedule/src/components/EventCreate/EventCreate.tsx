@@ -34,16 +34,14 @@ export const EventCreate = () => {
         onClose={onClose}
         isVisible={isVisible}
       />
-      <Affix>
-        <Button
-          type="primary"
-          onClick={() => {
-            setVisible(true);
-          }}
-        >
-          <PlusOutlined />
-        </Button>
-      </Affix>
+      <Button
+        type="primary"
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        <PlusOutlined />
+      </Button>
     </>
   );
 };

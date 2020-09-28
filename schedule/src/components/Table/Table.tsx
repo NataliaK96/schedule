@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Table.css';
-import { Table as TebleAntd, Tag } from 'antd';
+import { Table as TebleAntd } from 'antd';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { selectEvents, selectRole } from '../../redux/selectors';
 import { ISchedule, IEvent, IOrganizer, Role } from '../../redux/types';
 import moment from 'moment';
 import { setCsv } from '../../redux/actions';
 import { EventEdit } from '../EventEdit/EventEdit';
+import { TypeTag } from '..';
 import { Checkbox } from 'antd';
 import { Popover, Button } from 'antd';
 
@@ -36,15 +37,27 @@ const Table = (props: { events: IEvent[] }) => {
   const [showName, changeShowName] = useState<boolean>(true);
   const [showOrganizer, changeShowOrganizer] = useState<boolean>(true);
   const [showComment, changeShowComment] = useState<boolean>(true);
-  
+
   function onChange(checkedValues: any) {
-    switch(checkedValues.target.value) {
-      case 'date': changeShowDate(!showDate); break;
-      case 'time': changeShowTime(!showTime); break;
-      case 'type': changeShowType(!showType); break;
-      case 'name': changeShowName(!showName); break;
-      case 'organizer': changeShowOrganizer(!showOrganizer); break;
-      case 'comment': changeShowComment(!showComment); break;
+    switch (checkedValues.target.value) {
+      case 'date':
+        changeShowDate(!showDate);
+        break;
+      case 'time':
+        changeShowTime(!showTime);
+        break;
+      case 'type':
+        changeShowType(!showType);
+        break;
+      case 'name':
+        changeShowName(!showName);
+        break;
+      case 'organizer':
+        changeShowOrganizer(!showOrganizer);
+        break;
+      case 'comment':
+        changeShowComment(!showComment);
+        break;
     }
   }
 
@@ -60,75 +73,74 @@ const Table = (props: { events: IEvent[] }) => {
     };
   });
 
+  const dateColumn = showDate
+    ? {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date',
+      }
+    : {};
 
-  const dateColumn = showDate ? {
-    title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
-  } : {};
+  const timeColumn = showTime
+    ? {
+        title: 'Time',
+        dataIndex: 'time',
+        key: 'time',
+      }
+    : {};
 
-  const timeColumn = showTime ? {
-    title: 'Time',
-    dataIndex: 'time',
-    key: 'time',
-  } : {};
+  const typeColumn = showType
+    ? {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        filters: filtersArr,
+        onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+        render: (type: string) => <TypeTag type={type}></TypeTag>,
+      }
+    : {};
 
-  const typeColumn = showType ? {
-    title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
-    filters: filtersArr,
-    onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
-    render: (type: string) => <Tag>{type}</Tag>,
-  } : {};
+  const nameColumn = showName
+    ? {
+        title: 'Name',
+        dataIndex: 'eventsItem',
+        key: 'name',
+        render: (eventsItem: IEvent) => (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={eventsItem.descriptionUrl}
+          >
+            {eventsItem.name}
+          </a>
+        ),
+      }
+    : {};
 
-  const nameColumn = showName ? {
-    title: 'Name',
-    dataIndex: 'eventsItem',
-    key: 'name',
-    render: (eventsItem: IEvent) => (
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={eventsItem.descriptionUrl}
-        >
-          {eventsItem.name}
-        </a>
-      </div>
-    ),
-  } : {};
+  const organizerColumn = showOrganizer
+    ? {
+        title: 'Organizer',
+        dataIndex: 'organizer',
+        key: 'organizer',
+        render: (organizer: IOrganizer) => (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://github.com/${organizer.githubId}`}
+          >
+            {organizer.name}
+          </a>
+        ),
+      }
+    : {};
 
-  const organizerColumn = showOrganizer ? {
-    title: 'Organizer',
-    dataIndex: 'organizer',
-    key: 'organizer',
-    render: (organizer: IOrganizer) => (
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`https://github.com/${organizer.githubId}`}
-        >
-          {organizer.name}
-        </a>
-      </div>
-    ),
-  } : {};
-
-  const commentColumn = showComment ? {
-    title: 'Comment',
-    dataIndex: 'comment',
-    key: 'comment',
-  } : {};
+  const commentColumn = showComment
+    ? {
+        title: 'Comment',
+        dataIndex: 'comment',
+        key: 'comment',
+      }
+    : {};
 
   const columns = [
     dateColumn,
@@ -142,9 +154,8 @@ const Table = (props: { events: IEvent[] }) => {
   useEffect(() => {
     const header =
       columns.reduce((acc, item) => {
-          if (item.title === '') return acc;
+        if (item.title === '') return acc;
         return acc + item.title + ',';
-        
       }, '') + '\n';
     const rows = dataSource.reduce((acc, item) => {
       const row =
@@ -176,19 +187,43 @@ const Table = (props: { events: IEvent[] }) => {
 
   const content = (
     <div className="column-visability-setting">
-        <Checkbox checked={showDate} onChange={onChange} value='date'> Date </Checkbox>
-        <Checkbox checked={showTime} onChange={onChange} value='time'> Time </Checkbox>
-        <Checkbox checked={showType} onChange={onChange} value='type'> Type </Checkbox>
-        <Checkbox checked={showName} onChange={onChange} value='name'> Name </Checkbox>
-        <Checkbox checked={showOrganizer} onChange={onChange} value='organizer'> Organizer </Checkbox>
-        <Checkbox checked={showComment} onChange={onChange} value='comment'> Comment </Checkbox>
-      </div>  
+      <Checkbox checked={showDate} onChange={onChange} value="date">
+        {' '}
+        Date{' '}
+      </Checkbox>
+      <Checkbox checked={showTime} onChange={onChange} value="time">
+        {' '}
+        Time{' '}
+      </Checkbox>
+      <Checkbox checked={showType} onChange={onChange} value="type">
+        {' '}
+        Type{' '}
+      </Checkbox>
+      <Checkbox checked={showName} onChange={onChange} value="name">
+        {' '}
+        Name{' '}
+      </Checkbox>
+      <Checkbox checked={showOrganizer} onChange={onChange} value="organizer">
+        {' '}
+        Organizer{' '}
+      </Checkbox>
+      <Checkbox checked={showComment} onChange={onChange} value="comment">
+        {' '}
+        Comment{' '}
+      </Checkbox>
+    </div>
   );
 
   return (
     <>
-      <Popover content={content} title="Сolumn visability setting" trigger="click">
-        <Button className='column-visability-setting'>Column visability setting</Button>
+      <Popover
+        content={content}
+        title="Сolumn visability setting"
+        trigger="click"
+      >
+        <Button className="column-visability-setting">
+          Column visability setting
+        </Button>
       </Popover>
       <TebleAntd
         style={{ marginTop: 20, overflowY: 'auto' }}
@@ -197,7 +232,7 @@ const Table = (props: { events: IEvent[] }) => {
         columns={columns}
         onRow={(record, rowIndex) => {
           return {
-            onClick: (event) => {
+            onDoubleClick: (event) => {
               if (role === Role.student) return;
               setChooseEvent(record.eventsItem);
               shwoEditModal(true);
@@ -206,8 +241,7 @@ const Table = (props: { events: IEvent[] }) => {
           };
         }}
       />
-      
-     
+
       {editModalIsVisible && chooseEvent && (
         <EventEdit
           useDelete={true}
