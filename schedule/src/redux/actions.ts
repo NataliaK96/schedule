@@ -1,4 +1,4 @@
-import { ScheduleActionTypes, IEvent, ITimeZone } from './types';
+import { ScheduleActionTypes, IEvent, ITimeZone, IType } from './types';
 import { api } from '../api/api';
 
 export const initAction = () => ({
@@ -19,26 +19,24 @@ export const setError = (value: boolean) => {
   };
 };
 
-export const setRole = (value: string) => {
+export const setPosting = (value: boolean) => {
   return {
-    type: ScheduleActionTypes.SET_ROLE,
+    type: ScheduleActionTypes.SET_POSTING,
     payload: value,
   };
 };
 
-export const chooseTable = (value:string) => {
+export const changeRole = () => {
   return {
-    type: ScheduleActionTypes.CHOOSE_TABLE,
-    payload: value
+    type: ScheduleActionTypes.CHANGE_ROLE,
   };
-}; 
+};
 
-export const chooseCalendar = (value:string) => {
+export const changeTemplate = () => {
   return {
-    type: ScheduleActionTypes.CHOOSE_CALENDARE,
-    payload: value
+    type: ScheduleActionTypes.CHANGE_TEMPLATE,
   };
-}; 
+};
 
 export const setEvents = (events: IEvent[]) => {
   return {
@@ -51,6 +49,20 @@ export const setTimeZone = (value: ITimeZone) => {
   return {
     type: ScheduleActionTypes.SET_TIMEZONE,
     payload: value,
+  };
+};
+
+export const setCsv = (s: string) => {
+  return {
+    type: ScheduleActionTypes.SET_CSV,
+    payload: s,
+  };
+};
+
+export const setTagTypes = (types: IType[]) => {
+  return {
+    type: ScheduleActionTypes.SET_TAG_TYPES,
+    payload: types,
   };
 };
 
@@ -69,7 +81,7 @@ export const getScheduleAsync = () => async (dispatch: any) => {
 };
 
 export const postEvent = (event: IEvent) => async (dispatch: any) => {
-  dispatch(setLoading(true));
+  dispatch(setPosting(true));
   try {
     await fetch(api.getUrlEvent(), {
       method: 'POST',
@@ -82,5 +94,33 @@ export const postEvent = (event: IEvent) => async (dispatch: any) => {
   } catch {
     dispatch(setError(true));
   }
-  dispatch(setLoading(false));
+  dispatch(setPosting(false));
+};
+
+export const putEvent = (event: IEvent) => async (dispatch: any) => {
+  dispatch(setPosting(true));
+  try {
+    await fetch(api.getUrlEvent(event.id), {
+      method: 'PUT',
+      body: JSON.stringify(event),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    dispatch(getScheduleAsync());
+  } catch {
+    dispatch(setError(true));
+  }
+  dispatch(setPosting(false));
+};
+
+export const deleteEvent = (event: IEvent) => async (dispatch: any) => {
+  try {
+    await fetch(api.getUrlEvent(event.id), {
+      method: 'DELETE',
+    });
+    dispatch(getScheduleAsync());
+  } catch {
+    dispatch(setError(true));
+  }
 };

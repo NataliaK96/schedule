@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Popover } from 'antd';
 import {
   AudioOutlined,
@@ -11,16 +11,19 @@ import {
 
 import style from './EventInfo.module.scss';
 import { TypeTag } from '..';
-import { IEvent } from '../../redux/types';
+import { IEvent, Role } from '../../redux/types';
+import { selectRole } from '../../redux/selectors';
+import { useSelector } from 'react-redux';
+import { EventEdit } from '../EventEdit/EventEdit';
 
 type Props = {
   event: IEvent;
 };
 
 export const EventInfo: React.FC<Props> = (props) => {
-  console.log(props.event);
   const event = props.event;
-
+  const [editModalIsVisible, showEditModal] = useState<boolean>(false);
+  const role: Role = useSelector(selectRole);
   const time = new Date(event ? event.dateTime : '')
     .toTimeString()
     .substr(0, 5);
@@ -35,7 +38,14 @@ export const EventInfo: React.FC<Props> = (props) => {
             <TypeTag type={event?.type ? event.type : ''} />
           </div>
         </div>
-        <EditOutlined style={{ paddingTop: 7 }} />
+        {role === Role.mentor && (
+          <EditOutlined
+            className={style.edit}
+            onClick={() => {
+              showEditModal(true);
+            }}
+          />
+        )}
       </div>
     </>
   );
@@ -81,6 +91,16 @@ export const EventInfo: React.FC<Props> = (props) => {
       <Popover placement="top" title={header} content={content} trigger="click">
         <div>{props.children}</div>
       </Popover>
+      {editModalIsVisible && (
+        <EventEdit
+          useDelete={true}
+          event={event}
+          isVisible={editModalIsVisible}
+          onClose={() => {
+            showEditModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -1,33 +1,19 @@
 import { Tag } from 'antd';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectTagTypes } from '../../redux/selectors';
+import { IType } from '../../redux/types';
 
 type Props = {
   type: string;
 };
-
 export const TypeTag = (props: Props) => {
-  let tagColor: string = 'gold';
-  switch (props.type) {
-    case 'online':
-      {
-        tagColor = 'blue';
-      }
-      break;
-    case 'deadline':
-      {
-        tagColor = 'red';
-      }
-      break;
-    case 'js task':
-      {
-        tagColor = 'green';
-      }
-      break;
-    case 'test':
-      {
-        tagColor = 'purple';
-      }
-      break;
-  }
-  return <Tag color={tagColor}>{props.type}</Tag>;
+  const types = useSelector(selectTagTypes);
+  const defType: IType = {
+    name: props.type,
+    color: '',
+  };
+  const findType = types.find((type) => type.name === props.type);
+  const type = findType ? findType : defType;
+  return <Tag color={type?.color}>{type?.name}</Tag>;
 };

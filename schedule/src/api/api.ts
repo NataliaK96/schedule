@@ -1,6 +1,6 @@
 export const api = {
   teamId: 15,
-  getUrlEvent(id?: number) {
+  getUrlEvent(id?: string) {
     return `${this.getUrlApi()}${this.teamId}/event/${
       id === undefined ? '' : id
     }`;
@@ -8,7 +8,7 @@ export const api = {
   getUrlEvents() {
     return `${this.getUrlApi()}${this.teamId}/events`;
   },
-  getUrlOrganizer(id: number) {
+  getUrlOrganizer(id: string) {
     return `${this.getUrlApi()}${this.teamId}/organizer/${id}`;
   },
   getUrlOrganizers() {

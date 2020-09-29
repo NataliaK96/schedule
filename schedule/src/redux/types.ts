@@ -3,24 +3,30 @@ export enum ScheduleActionTypes {
   FETCH_SCHEDULE = '@@schedule/FETCH_SCHEDULE',
 
   FETCH_EVENT = '@@schedule/FETCH_EVENT',
-  POST_EVENT = '@@schedule/ADD_EVENT',
+  POST_EVENT = '@@schedule/POST_EVENT',
   DELETE_EVENT = '@@schedule/DELETE_EVENT',
+  PUT_EVENT = '@@schedule/PUT_EVENT',
 
   SET_MARK = '@@schedule/SET_MARK',
 
-  SET_ROLE = '@@schedule/SET_ROLE',
-
+  CHANGE_ROLE = '@@schedule/CHANGE_ROLE',
   GET_ROLE = '@@schedule/GET_ROLE',
 
   SET_TIMEZONE = '@@schedule/SET_TIMEZONE',
 
-  CHOOSE_CALENDARE = '@@schedule/CHOOSE_CALENDARE',
-  CHOOSE_TABLE = '@@schedule/CHOOSE_TABLE',
+  CHANGE_TEMPLATE = '@@schedule/CHANGE_TEMPLATE',
 
   SET_LOADING = '@@schedule/SET_LOADING',
   SET_ERROR = '@@schedule/SET_ERROR',
 
+  SET_EVENT = '@@schedule/SET_EVENT',
+
+  SET_POSTING = '@@schedule/SET_POSTING',
   SET_EVENTS = '@@schedule/SET_EVENTS',
+
+  SET_CSV = '@@schedule/SET_CSV',
+
+  SET_TAG_TYPES = '@@schedule/SET_TAG_TYPES',
 }
 
 export interface ISchedule {
@@ -30,17 +36,17 @@ export interface ISchedule {
   template: Template;
   events: IEvent[];
   timeZone: ITimeZone;
+  tagTypes: IType[];
 }
 
 export interface ISchedule {
   isLoading: boolean;
   isError: boolean;
+  isPosting: boolean;
   role: Role;
   template: Template;
   events: IEvent[];
-  chooseEvent: IEvent | null;
-  eventInfoIsVisible: boolean;
-  eventEditIsVisible: boolean;
+  csv: string;
 }
 
 export enum Template {
@@ -73,6 +79,10 @@ export interface IOrganizer {
   id: string;
 }
 
+export interface IType {
+  name: string;
+  color: string;
+}
 export interface ITimeZone {
   name: string;
   offset: number;
