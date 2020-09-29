@@ -1,5 +1,5 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Dropdown, Input, Menu, Modal, Select, Tag } from 'antd';
+import { Dropdown, Menu, Modal, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTagTypes } from '../../redux/actions';

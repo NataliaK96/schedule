@@ -3,12 +3,7 @@ import { Button } from 'antd';
 import React from 'react';
 import fileDownload from 'js-file-download';
 import { useSelector } from 'react-redux';
-import {
-  selectEvents,
-  selectCsv,
-  selectTimeZone,
-} from '../../../redux/selectors';
-import { IEvent } from '../../../redux/types';
+import { selectCsv, selectTimeZone } from '../../../redux/selectors';
 
 export const Download = () => {
   const csv = useSelector(selectCsv);

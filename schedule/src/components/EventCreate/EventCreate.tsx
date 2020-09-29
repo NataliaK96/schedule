@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Affix, Button } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import { EventEdit } from '..';
 import { IEvent } from '../../redux/types';
