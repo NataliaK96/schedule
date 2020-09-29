@@ -1,6 +1,13 @@
-import { ScheduleActionTypes, ISchedule, Role, Template } from './types';
+import {
+  ScheduleActionTypes,
+  ISchedule,
+  Role,
+  Template,
+  IEvent,
+} from './types';
 import { initAction } from './actions';
 import { tagTypes } from '../utils/tagTypes';
+import moment from 'moment';
 
 const initialState: ISchedule = {
   isLoading: false,
@@ -19,7 +26,21 @@ export const scheduleReducer = (
 ): ISchedule => {
   switch (action.type) {
     case ScheduleActionTypes.FETCH_SCHEDULE:
-      return { ...state, events: action.payload };
+      return {
+        ...state,
+        events: action.payload.concat().sort((a: IEvent, b: IEvent) => {
+          const aDate = moment(a.dateTime).format('YYYY-MM-DD, hh:mm:ss');
+          const bDate = moment(b.dateTime).format('YYYY-MM-DD, hh:mm:ss');
+          console.log(aDate, bDate);
+          if (aDate > bDate) {
+            return 1;
+          }
+          if (aDate < bDate) {
+            return -1;
+          }
+          return 0;
+        }),
+      };
     case ScheduleActionTypes.SET_LOADING:
       return { ...state, isLoading: action.payload };
     case ScheduleActionTypes.SET_ERROR:

@@ -78,6 +78,9 @@ const Table = (props: { events: IEvent[] }) => {
         title: 'Date',
         dataIndex: 'date',
         key: 'date',
+        render: (date: string) => (
+          <div style={{ whiteSpace: 'nowrap' }}>{date}</div>
+        ),
       }
     : {};
 

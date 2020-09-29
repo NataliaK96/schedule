@@ -1,32 +1,15 @@
 import React from 'react';
 import './Calendar.css';
 import { Calendar as CalendarElement, Badge } from 'antd';
-import { IEvent, ISchedule } from '../../redux/types';
+import { IEvent, ISchedule, IType } from '../../redux/types';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { selectEvents } from '../../redux/selectors';
+import { connect, useSelector } from 'react-redux';
+import { selectEvents, selectTagTypes } from '../../redux/selectors';
 import { EventInfo } from '../EventInfo/EventInfo';
 
 interface IFormattedData {
   [key: string]: IEvent[];
 }
-
-const getColor = (type: string): string => {
-  let color: string;
-  switch (type) {
-    case 'online':
-      color = 'blue';
-    case 'deadline':
-      color = 'red';
-    case 'js task':
-      color = 'green';
-    case 'test':
-      color = 'purple';
-    default:
-      color = 'gold';
-  }
-  return color;
-};
 
 const formatData = function (data: IEvent[]): IFormattedData {
   const formattedData: IFormattedData = {};
@@ -53,9 +36,16 @@ function getDayData(time: any, formattedData: IFormattedData): IEvent[] {
   return formattedData[date] || [];
 }
 
-function dateCellRender(time: any, formattedData: IFormattedData) {
+function dateCellRender(
+  time: any,
+  formattedData: IFormattedData,
+  tagTypes: IType[]
+) {
   const dayData = getDayData(time, formattedData);
-
+  const getColor = (type: string) => {
+    const color = tagTypes.find((tag: IType) => tag.name === type)?.color;
+    return color ? color : 'gold';
+  };
   return (
     <ul className="events">
       {dayData.map((event, index) => {
@@ -79,11 +69,11 @@ interface Props {
 
 const Calendar: React.FC<Props> = (props) => {
   const formattedData: IFormattedData = formatData(props.data);
-
+  const tagTypes = useSelector(selectTagTypes);
   return (
     <>
       <CalendarElement
-        dateCellRender={(time) => dateCellRender(time, formattedData)}
+        dateCellRender={(time) => dateCellRender(time, formattedData, tagTypes)}
       />
     </>
   );
